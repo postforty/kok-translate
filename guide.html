@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>KokTranslate 사용 설명서</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; padding: 30px; max-width: 800px; margin: 0 auto; color: #333; }
+    h1 { color: #8A2BE2; border-bottom: 2px solid #8A2BE2; padding-bottom: 10px; }
+    h2 { color: #7A1DD2; margin-top: 30px; }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 10px; }
+    code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; color: #d63384; font-family: monospace; }
+    .feature-box { background: rgba(138, 43, 226, 0.1); border-left: 4px solid #8A2BE2; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+  </style>
+</head>
+<body>
+  <h1>📖 KokTranslate 사용 설명서</h1>
+  
+  <p>웹 페이지의 궁금한 텍스트를 마우스로 콕! 찍거나 드래그하여 즉시 번역할 수 있는 똑똑한 확장 프로그램입니다.</p>
+  
+  <h2>기본 사용법</h2>
+  <ul>
+    <li>브라우저 상단의 퍼즐 아이콘이나 고정된 <strong>KokTranslate</strong> 아이콘을 클릭하여 팝업을 엽니다.</li>
+    <li><strong>[콕! 번역 모드 켜기]</strong> 버튼을 누릅니다.</li>
+    <li>웹 페이지에서 번역하고 싶은 요소에 마우스를 올리면 보라색 점선과 배경으로 강조됩니다.</li>
+    <li>원하는 요소를 <strong>마우스로 클릭</strong>하면 번역 툴팁이 나타납니다.</li>
+  </ul>
+
+  <h2>🔄 양방향 자동 스마트 번역</h2>
+  <div class="feature-box">
+    따로 언어를 설정할 필요 없이 LLM(Gemini)이 문맥을 파악하여 똑똑하게 번역합니다.<br>
+    <ul>
+      <li><strong>기본 동작:</strong> 선택한 텍스트가 영어, 일본어 등 <strong>외국어일 경우 한국어로</strong> 자연스럽게 번역합니다.</li>
+      <li><strong>반대 동작:</strong> 선택한 텍스트가 <strong>이미 한국어일 경우 영어로</strong> 번역합니다.</li>
+    </ul>
+  </div>
+
+  <h2>드래그로 여러 문장 번역하기</h2>
+  <div class="feature-box">
+    <strong>마우스 드래그 선택</strong><br>
+    클릭 한 번으로 선택하기 어려운 긴 문단이나 여러 요소에 걸친 텍스트를 번역하고 싶을 때 사용합니다.<br>
+    마우스 왼쪽 버튼을 <strong>누른 채로 드래그</strong>하여 보라색 박스를 그립니다. 마우스를 놓으면 박스 안에 포함된 모든 텍스트가 번역됩니다.
+  </div>
+  
+  <h2>⚙️ API 키 설정 (필수)</h2>
+  <p>확장 프로그램을 사용하려면 <strong>Google Gemini API 키</strong>를 설정해야 합니다.</p>
+  <ul>
+    <li>팝업 메뉴에서 <strong>[설정]</strong> 버튼을 클릭합니다.</li>
+    <li>발급받은 <strong>Gemini API 키</strong>를 입력하고 저장합니다.</li>
+    <li>이제 모든 준비가 끝났습니다! 자유롭게 웹 페이지를 번역해 보세요.</li>
+  </ul>
+</body>
+</html>

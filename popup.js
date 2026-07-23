@@ -41,3 +41,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 document.getElementById("options-btn").addEventListener("click", () => {
   chrome.runtime.openOptionsPage();
 });
+
+document.getElementById("guide-btn").addEventListener("click", () => {
+  chrome.tabs.create({ url: chrome.runtime.getURL("guide.html") });
+});
