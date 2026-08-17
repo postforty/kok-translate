@@ -10,7 +10,8 @@
     ul { padding-left: 20px; }
     li { margin-bottom: 10px; }
     code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; color: #d63384; font-family: monospace; }
-    .feature-box { background: rgba(138, 43, 226, 0.1); border-left: 4px solid #8A2BE2; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+    .kbd { display: inline-block; padding: 2px 6px; font-size: 13px; font-weight: bold; color: #333; background-color: #f8f9fa; border: 1px solid #ccc; border-radius: 4px; }
+    .feature-box { background: rgba(138, 43, 226, 0.08); border-left: 4px solid #8A2BE2; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
   </style>
 </head>
 <body>
@@ -24,6 +25,7 @@
     <li><strong>[콕! 번역 모드 켜기]</strong> 버튼을 누릅니다.</li>
     <li>웹 페이지에서 번역하고 싶은 요소에 마우스를 올리면 보라색 점선과 배경으로 강조됩니다.</li>
     <li>원하는 요소를 <strong>마우스로 클릭</strong>하면 번역 툴팁이 나타납니다.</li>
+    <li>언제든지 <span class="kbd">ESC</span> 키를 누르면 번역 모드가 종료됩니다.</li>
   </ul>
 
   <h2>🔄 양방향 자동 스마트 번역</h2>
@@ -35,19 +37,20 @@
     </ul>
   </div>
 
-  <h2>드래그로 여러 문장 번역하기</h2>
+  <h2>🖱️ 드래그로 여러 문장 번역하기 (마퀴 선택)</h2>
   <div class="feature-box">
     <strong>마우스 드래그 선택</strong><br>
     클릭 한 번으로 선택하기 어려운 긴 문단이나 여러 요소에 걸친 텍스트를 번역하고 싶을 때 사용합니다.<br>
     마우스 왼쪽 버튼을 <strong>누른 채로 드래그</strong>하여 보라색 박스를 그립니다. 마우스를 놓으면 박스 안에 포함된 모든 텍스트가 번역됩니다.
   </div>
   
-  <h2>⚙️ API 키 설정 (필수)</h2>
+  <h2>⚙️ API 키 및 환경 설정 (Options) 안내</h2>
   <p>확장 프로그램을 사용하려면 <strong>Google Gemini API 키</strong>를 설정해야 합니다.</p>
   <ul>
-    <li>팝업 메뉴에서 <strong>[설정]</strong> 버튼을 클릭합니다.</li>
-    <li>발급받은 <strong>Gemini API 키</strong>를 입력하고 저장합니다.</li>
-    <li>이제 모든 준비가 끝났습니다! 자유롭게 웹 페이지를 번역해 보세요.</li>
+    <li><strong>Gemini API Key:</strong> [Google AI Studio](https://aistudio.google.com/)에서 무료로 발급받은 키를 등록합니다.</li>
+    <li><strong>Gemini 모델 (Model):</strong> 기본값(<code>gemini-3.1-flash-lite</code>) 외에 사용자가 원하는 모델(<code>gemini-2.5-flash</code> 등)을 직접 입력하여 사용할 수 있습니다.</li>
+    <li><strong>UI 언어 (Language):</strong> 한국어 및 영어(English) 중 원하는 언어로 UI를 변경할 수 있으며 영구적으로 유지됩니다.</li>
+    <li><strong>기본값 초기화 (Reset Defaults):</strong> API Key는 안전하게 보존하면서 모델 및 언어 설정을 언제든 기본값으로 원클릭 복원할 수 있습니다.</li>
   </ul>
 </body>
 </html>

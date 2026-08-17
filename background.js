@@ -1,4 +1,6 @@
-async function translateText(text, apiKey) {
+importScripts("i18n.js");
+
+async function translateText(text, apiKey, model = "gemini-3.1-flash-lite") {
   const promptText = `Translate the following text to Korean naturally.
 If it is already in Korean, translate it to English.
 Only output the translated text without any conversational text or quotes.
@@ -6,7 +8,8 @@ Only output the translated text without any conversational text or quotes.
 Text to translate:
 ${text}`;
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`;
+  const selectedModel = model || "gemini-3.1-flash-lite";
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${apiKey}`;
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -33,11 +36,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       .then((translatedText) => {
         sendResponse({ success: true, translatedText: translatedText });
       })
-      .catch(error => {
+      .catch(async (error) => {
         console.error("Translation Error:", error);
+        const activeLang = await I18N.getEffectiveLanguage();
         sendResponse({
           success: false,
-          translatedText: `오류 발생: ${error.message}`
+          translatedText: I18N.t("translationErrorMsg", [error.message], activeLang)
         });
       });
 
@@ -46,11 +50,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 async function handleTranslation(originalText) {
-  const syncConfig = await chrome.storage.sync.get(["geminiApiKey"]);
+  const syncConfig = await chrome.storage.sync.get(["geminiApiKey", "geminiModel"]);
+  const activeLang = await I18N.getEffectiveLanguage();
 
   if (!syncConfig.geminiApiKey) {
-    return `API Key가 필요합니다. KokTranslate 확장 프로그램 설정에서 Gemini API Key를 입력해주세요.`;
+    return I18N.t("apiKeyRequiredMsg", [], activeLang);
   } else {
-    return await translateText(originalText, syncConfig.geminiApiKey);
+    return await translateText(originalText, syncConfig.geminiApiKey, syncConfig.geminiModel);
   }
 }

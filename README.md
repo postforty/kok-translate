@@ -1,44 +1,54 @@
-# 콕! 번역기 (KokTranslate)
+# KokTranslate (콕! 번역기)
 
-웹페이지의 텍스트를 **콕!** 찍거나 드래그하여 바로 번역하는 LLM 기반 크롬 확장 프로그램입니다.
+A Google Chrome Extension that translates any text on a webpage instantly with a simple **point-and-click** or **drag-and-select**, powered by Google Gemini AI.
 
-## 🌟 주요 기능
+[한국어 설명서 (Korean Documentation)](README.ko.md)
 
-* **직관적인 요소 선택 (DOM Hover & Highlight)**: 번역 모드를 켜고 마우스를 올리면, 번역될 HTML 요소가 보라색 점선 박스로 강조 표시됩니다.
-* **클릭 한 번으로 번역 (Point & Click Translation)**: 강조된 요소를 클릭하면 해당 텍스트를 즉시 번역하여 마우스 위치에 툴팁으로 보여줍니다.
-* **드래그 영역 번역 (Marquee Selection)**: 마우스로 원하는 영역을 드래그하여 여러 요소의 텍스트를 한 번에 추출하고 번역할 수 있습니다.
-* **LLM 기반 자연스러운 번역**: Gemini API (기본 모델: `gemini-3.1-flash-lite`)를 사용하여 문맥에 맞는 자연스러운 번역을 제공합니다. (한국어는 영어로, 영어나 다른 언어는 한국어로 자동 번역합니다.)
-* **편리한 툴팁 UI**: 페이지 전환 없이 제자리에서 결과를 확인하고, 번역된 텍스트를 바로 복사할 수 있습니다. `ESC` 키를 눌러 쉽게 모드를 종료할 수 있습니다.
+---
 
-## 🚀 설치 방법
+## 🌟 Key Features
 
-1. 이 저장소를 클론하거나 코드를 다운로드하여 폴더 압축을 풉니다.
-2. 크롬 브라우저에서 주소창에 `chrome://extensions/`를 입력하여 **확장 프로그램 관리** 페이지로 이동합니다.
-3. 우측 상단의 **개발자 모드**를 켭니다.
-4. 좌측 상단의 **압축해제된 확장 프로그램을 로드합니다.** 버튼을 클릭합니다.
-5. 소스코드가 있는 `kok-translate` 폴더를 선택하여 불러옵니다.
-6. 브라우저 우측 상단의 퍼즐 모양(확장 프로그램) 아이콘을 눌러 **KokTranslate**를 핀(고정) 처리하여 쉽게 사용할 수 있도록 합니다.
+* **Intuitive Element Selection (DOM Hover & Highlight)**: When translation mode is active, hovering over web elements highlights them with a clean purple dashed border.
+* **Point & Click Translation**: Left-click any highlighted element to instantly translate its text and view results right next to your cursor.
+* **Marquee Drag Selection**: Click and drag a box across the screen to extract and translate multi-paragraph sections or complex layouts at once.
+* **Smart Two-Way LLM Translation**: Uses the Google Gemini API to provide natural, context-aware translations. (Translates foreign languages into Korean, and Korean into English automatically.)
+* **Custom Gemini Model Support**: Specify custom Gemini model IDs in settings in addition to the default (`gemini-3.1-flash-lite`).
+* **Seamless Tooltip UI**: View translation results without leaving the page, and copy them with one click. Press `ESC` anytime to exit translation mode.
+* **Full i18n & Multilingual Support**: Built-in support for Korean and English UI and user guides. Switch languages anytime or auto-detect system language.
 
-## ⚙️ 설정 방법 (API 키 입력)
+## 🚀 Installation
 
-번역 기능을 사용하기 위해서는 **Gemini API Key**가 반드시 필요합니다.
+1. Clone or download this repository and unzip it.
+2. In Chrome, navigate to `chrome://extensions/`.
+3. Enable **Developer mode** in the top-right corner.
+4. Click **Load unpacked** in the top-left corner.
+5. Select the `kok-translate` folder.
+6. Click the Extensions (puzzle) icon in your browser toolbar and pin **KokTranslate** for quick access.
 
-1. [Google AI Studio](https://aistudio.google.com/)에 접속하여 무료 API 키를 발급받습니다.
-2. 브라우저 툴바에서 콕! 번역기 확장 프로그램 아이콘을 클릭합니다.
-3. 팝업창 하단의 **설정** 버튼을 누릅니다.
-4. 발급받은 Gemini API Key를 입력창에 붙여넣고 **저장하기**를 클릭합니다.
+## ⚙️ Configuration (API Key, Model & Language)
 
-## 🖱️ 사용 방법
+A **Google Gemini API Key** is required for translation.
 
-1. 번역하고 싶은 웹페이지에서 콕! 번역기 확장 프로그램 아이콘을 클릭합니다.
-2. 팝업에서 **콕! 번역 모드 켜기** 버튼을 누릅니다. (이제 마우스를 움직이면 페이지 내의 요소들이 보라색 박스로 표시됩니다.)
-3. **요소 클릭 번역:** 번역을 원하는 텍스트 위로 마우스를 올려 영역이 선택되면 한 번 클릭합니다.
-4. **드래그 영역 번역:** 여러 요소나 특정 구간의 텍스트만 묶어서 번역하고 싶다면, 마우스를 클릭한 상태로 네모난 박스를 그리듯 드래그합니다.
-5. 마우스 위치에 로딩 스피너가 표시된 후, 툴팁(말풍선) 형태로 번역 결과를 바로 확인할 수 있습니다.
-6. 번역 모드를 종료하려면 키보드의 `ESC` 키를 누르거나 툴팁 바깥 영역을 클릭하면 됩니다.
+1. Visit [Google AI Studio](https://aistudio.google.com/) to get a free API Key.
+2. Click the KokTranslate extension icon in the toolbar.
+3. Click the **Settings** button at the bottom of the popup.
+4. Configure the following options and click **Save Settings**:
+   - **Gemini API Key**: Paste your Gemini API Key.
+   - **Gemini Model**: Enter custom model ID (default: `gemini-3.1-flash-lite`).
+   - **UI Language**: Select preferred UI language (Auto / Korean / English).
+   - **Reset Defaults**: Restore model and language settings to defaults while safely retaining your API key.
 
-## 🛠️ 기술 스택
+## 🖱️ How to Use
+
+1. Click the KokTranslate extension icon on any webpage you wish to translate.
+2. Click the **Start Point & Click Mode** button. (Hovering over elements will now show a purple highlight box.)
+3. **Single Element Translation:** Hover over target text and left-click.
+4. **Drag Selection Translation:** Hold down left-click and drag a box over multiple elements or long paragraphs.
+5. A translation tooltip with a loading spinner will appear at the cursor position and display the translated text once ready.
+6. Press `ESC` or click outside the tooltip to close it and resume browsing or selecting.
+
+## 🛠️ Tech Stack
 
 * HTML, CSS, JavaScript (Vanilla)
-* Chrome Extension API (Manifest V3)
-* Google Gemini API (`gemini-3.1-flash-lite`)
+* Chrome Extension API (Manifest V3, i18n)
+* Google Gemini API (`gemini-3.1-flash-lite`, etc.)

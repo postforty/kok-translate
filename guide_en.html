@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>KokTranslate User Guide</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; padding: 30px; max-width: 800px; margin: 0 auto; color: #333; }
+    h1 { color: #8A2BE2; border-bottom: 2px solid #8A2BE2; padding-bottom: 10px; }
+    h2 { color: #7A1DD2; margin-top: 30px; }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 10px; }
+    code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; color: #d63384; font-family: monospace; }
+    .kbd { display: inline-block; padding: 2px 6px; font-size: 13px; font-weight: bold; color: #333; background-color: #f8f9fa; border: 1px solid #ccc; border-radius: 4px; }
+    .feature-box { background: rgba(138, 43, 226, 0.08); border-left: 4px solid #8A2BE2; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+  </style>
+</head>
+<body>
+  <h1>📖 KokTranslate User Guide</h1>
+  
+  <p>A smart browser extension that translates any text on a web page instantly with a single point-and-click or drag selection powered by Google Gemini AI.</p>
+  
+  <h2>Basic Usage</h2>
+  <ul>
+    <li>Click the puzzle icon or the pinned <strong>KokTranslate</strong> icon in your browser toolbar to open the popup.</li>
+    <li>Click the <strong>[Start Point & Click Mode]</strong> button.</li>
+    <li>Hover your mouse over elements you want to translate — they will be highlighted with a purple dashed outline.</li>
+    <li><strong>Left-click</strong> the desired element to open the instant translation tooltip.</li>
+    <li>Press <span class="kbd">ESC</span> anytime to exit translation mode.</li>
+  </ul>
+
+  <h2>🔄 Smart Two-Way AI Translation</h2>
+  <div class="feature-box">
+    No need to manually configure source/target languages. The Gemini LLM automatically analyzes context:
+    <ul>
+      <li><strong>Foreign Languages to Korean:</strong> Automatically translates English, Japanese, etc. into natural Korean.</li>
+      <li><strong>Korean to English:</strong> Automatically translates Korean text into clear English.</li>
+    </ul>
+  </div>
+
+  <h2>🖱️ Marquee Drag Selection (Multi-Element & Long Text)</h2>
+  <div class="feature-box">
+    <strong>Mouse Drag Selection</strong><br>
+    Used when you want to translate multiple paragraphs, articles, or complex page sections at once.<br>
+    <strong>Hold the left mouse button and drag</strong> across the page to draw a purple box. Releasing the mouse button will capture and translate all text contained within the area.
+  </div>
+  
+  <h2>⚙️ Extension Settings (Options)</h2>
+  <p>To use translation features, you need a <strong>Google Gemini API Key</strong> (Free via Google AI Studio).</p>
+  <ul>
+    <li><strong>Gemini API Key:</strong> Register your free API key obtained from [Google AI Studio](https://aistudio.google.com/).</li>
+    <li><strong>Gemini Model:</strong> Specify custom model IDs (e.g. <code>gemini-2.5-flash</code>) in addition to the default (<code>gemini-3.1-flash-lite</code>).</li>
+    <li><strong>UI Language:</strong> Switch interface between Korean and English permanently.</li>
+    <li><strong>Reset Defaults:</strong> Restore model and language to default values with a single click while safely keeping your API key.</li>
+  </ul>
+</body>
+</html>

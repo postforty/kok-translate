@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "KokTranslate",
+    "description": "확장 프로그램의 이름"
+  },
+  "extDescription": {
+    "message": "웹페이지 요소를 콕! 찍어 바로 번역하는 LLM 기반 크롬 확장 프로그램",
+    "description": "확장 프로그램 설명"
+  }
+}

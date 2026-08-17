@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
+  const currentLang = await I18N.initDOM();
   const btn = document.getElementById("start-btn");
   let isActive = false;
 
@@ -13,16 +14,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     chrome.tabs.sendMessage(tab.id, { action: "check_status" }, (response) => {
       if (!chrome.runtime.lastError && response && response.isActive) {
         isActive = true;
-        btn.textContent = "번역 모드 끄기 (Esc)";
+        btn.textContent = I18N.t("stopMode", [], currentLang);
         btn.classList.add("active");
       }
     });
 
     btn.addEventListener("click", async () => {
-      // Ensure content script is injected
+      // Ensure content script and i18n module are injected
       await chrome.scripting.executeScript({
         target: { tabId: tab.id, allFrames: true },
-        files: ["content.js"]
+        files: ["i18n.js", "content.js"]
       });
 
       if (isActive) {
@@ -42,6 +43,8 @@ document.getElementById("options-btn").addEventListener("click", () => {
   chrome.runtime.openOptionsPage();
 });
 
-document.getElementById("guide-btn").addEventListener("click", () => {
-  chrome.tabs.create({ url: chrome.runtime.getURL("guide.html") });
+document.getElementById("guide-btn").addEventListener("click", async () => {
+  const currentLang = await I18N.getEffectiveLanguage();
+  const guidePage = currentLang === "en" ? "guide_en.html" : "guide.html";
+  chrome.tabs.create({ url: chrome.runtime.getURL(guidePage) });
 });

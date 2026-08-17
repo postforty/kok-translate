@@ -2,33 +2,121 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>KokTranslate 설정</title>
+  <title data-i18n="optionsTitle">KokTranslate 설정</title>
   <style>
-    body { font-family: sans-serif; padding: 20px; max-width: 400px; margin: 0 auto; }
-    h1 { color: #8A2BE2; font-size: 20px; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 25px 20px; max-width: 440px; margin: 0 auto; color: #333; line-height: 1.5; }
+    h1 { color: #8A2BE2; font-size: 22px; display: flex; align-items: center; gap: 8px; margin-top: 0; margin-bottom: 20px; border-bottom: 2px solid #8A2BE2; padding-bottom: 8px; }
     .form-group { margin-bottom: 20px; }
-    label { display: block; font-weight: bold; margin-bottom: 8px; }
-    .input-wrapper { display: flex; gap: 10px; }
-    input[type="password"], input[type="text"] { flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
-    button { padding: 8px 16px; background-color: #8A2BE2; color: white; border: none; border-radius: 4px; cursor: pointer; }
-    button:hover { background-color: #7A1DD2; }
-    #toggleApiKey { background-color: #f0f0f0; color: #333; }
-    #toggleApiKey:hover { background-color: #e0e0e0; }
-    #status { color: #107C10; margin-top: 10px; font-weight: bold; }
+    label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; color: #333; }
+    
+    .input-group { display: flex; }
+    .input-group input {
+      flex: 1;
+      padding: 9px 12px;
+      border: 1px solid #ccc;
+      border-right: none;
+      border-radius: 5px 0 0 5px;
+      font-size: 14px;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+    .input-group input:focus {
+      outline: none;
+      border-color: #8A2BE2;
+      box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.2);
+    }
+    .input-group button {
+      padding: 0 12px;
+      background: #f8f9fa;
+      color: #555;
+      border: 1px solid #ccc;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .input-group button:hover {
+      background: #e9ecef;
+      color: #333;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+    input[type="text"]:focus, select:focus {
+      outline: none;
+      border-color: #8A2BE2;
+      box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.2);
+    }
+    select { background: #fff; }
+
+    .btn-row { display: flex; gap: 10px; align-items: center; margin-top: 25px; }
+    #saveBtn { padding: 10px 20px; background-color: #8A2BE2; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; font-weight: bold; transition: background-color 0.2s; }
+    #saveBtn:hover { background-color: #7A1DD2; }
+    #resetBtn { padding: 10px 16px; background-color: #f1f3f5; color: #495057; border: 1px solid #ced4da; border-radius: 5px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s; }
+    #resetBtn:hover { background-color: #e9ecef; }
+    .help-text { font-size: 12px; color: #666; margin-top: 6px; }
+    #status { color: #107C10; margin-top: 12px; font-weight: bold; font-size: 14px; min-height: 20px; }
   </style>
 </head>
 <body>
-  <h1 style="display: flex; align-items: center; gap: 8px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>KokTranslate 설정</h1>
+  <h1 data-i18n="optionsTitle">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+    <span>KokTranslate 설정</span>
+  </h1>
+
   <div class="form-group">
-    <label for="apiKey">Gemini API Key</label>
-    <div class="input-wrapper">
-      <input type="password" id="apiKey" placeholder="AI Studio에서 발급받은 API 키 입력">
-      <button id="toggleApiKey">보기</button>
+    <label for="apiKey" data-i18n="apiKeyLabel">Gemini API Key</label>
+    <div class="input-group">
+      <input type="password" id="apiKey" placeholder="AI Studio에서 발급받은 API 키 입력" data-i18n-placeholder="apiKeyPlaceholder">
+      <button type="button" id="toggleApiKey" title="비밀번호 표시/숨기기" data-i18n-title="toggleApiKeyTitle">
+        <svg id="eyeIconOpen" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+        <svg id="eyeIconClosed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+          <path
+            d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24">
+          </path>
+          <line x1="1" y1="1" x2="23" y2="23"></line>
+        </svg>
+      </button>
     </div>
-    <p style="font-size: 12px; color: #666; margin-top: 5px;">기본적으로 gemini-3.1-flash-lite 모델을 사용합니다.</p>
   </div>
-  <button id="saveBtn">저장하기</button>
+
+  <div class="form-group">
+    <label for="geminiModel" data-i18n="geminiModelLabel">Gemini 모델 (Model)</label>
+    <input type="text" id="geminiModel" placeholder="gemini-3.1-flash-lite" data-i18n-placeholder="geminiModelPlaceholder">
+    <p class="help-text" data-i18n="geminiModelDesc">기본값(gemini-3.1-flash-lite) 외에 사용할 모델 ID를 직접 입력할 수 있습니다.</p>
+  </div>
+
+  <div class="form-group">
+    <label for="uiLanguage" data-i18n="uiLanguageLabel">UI 언어 (Language)</label>
+    <select id="uiLanguage">
+      <option value="auto" data-i18n="langAuto">시스템 기본값 (자동 감지)</option>
+      <option value="ko" data-i18n="langKo">한국어 (Korean)</option>
+      <option value="en" data-i18n="langEn">English</option>
+    </select>
+  </div>
+
+  <div class="btn-row">
+    <button type="button" id="saveBtn" data-i18n="saveBtn">저장하기</button>
+    <button type="button" id="resetBtn" data-i18n="resetBtn">기본값 초기화</button>
+  </div>
   <div id="status"></div>
+
+  <script src="i18n.js"></script>
   <script src="options.js"></script>
 </body>
 </html>

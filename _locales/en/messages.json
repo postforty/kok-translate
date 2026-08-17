@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "KokTranslate",
+    "description": "The name of the extension"
+  },
+  "extDescription": {
+    "message": "Point and click or drag web page elements to translate instantly with LLM.",
+    "description": "The description of the extension"
+  }
+}

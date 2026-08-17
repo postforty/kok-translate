@@ -277,17 +277,20 @@ if (!window.hasInjectedKokTranslate) {
     showTooltip(textToTranslate.trim(), x, y);
   }
 
-  function showTooltip(text, x, y) {
+  async function showTooltip(text, x, y) {
     if (currentTooltip) {
       currentTooltip.remove();
     }
+
+    const currentLang = typeof I18N !== "undefined" ? await I18N.getEffectiveLanguage() : "ko";
+    const translatingText = typeof I18N !== "undefined" ? I18N.t("translatingHeader", [], currentLang) : "번역 중...";
 
     const tooltip = document.createElement("div");
     tooltip.className = "kok-tooltip";
     
     tooltip.innerHTML = `
       <div class="kok-tooltip-header">
-        <span>번역 중...</span>
+        <span>${translatingText}</span>
         <span class="kok-tooltip-close">&times;</span>
       </div>
       <div class="kok-tooltip-content">
@@ -350,23 +353,26 @@ if (!window.hasInjectedKokTranslate) {
       const headerSpan = tooltip.querySelector('.kok-tooltip-header span');
 
       if (response && response.success) {
-        headerSpan.textContent = "번역 결과";
+        headerSpan.textContent = typeof I18N !== "undefined" ? I18N.t("resultHeader", [], currentLang) : "번역 결과";
         contentDiv.textContent = response.translatedText;
         
         const copyBtn = document.createElement("button");
         copyBtn.className = "kok-tooltip-copy";
-        copyBtn.textContent = "복사";
+        const copyText = typeof I18N !== "undefined" ? I18N.t("copyBtn", [], currentLang) : "복사";
+        const copiedText = typeof I18N !== "undefined" ? I18N.t("copiedBtn", [], currentLang) : "복사됨!";
+        copyBtn.textContent = copyText;
         copyBtn.onclick = () => {
           navigator.clipboard.writeText(response.translatedText).then(() => {
-            copyBtn.textContent = "복사됨!";
-            setTimeout(() => { copyBtn.textContent = "복사"; }, 2000);
+            copyBtn.textContent = copiedText;
+            setTimeout(() => { copyBtn.textContent = copyText; }, 2000);
           });
         };
         tooltip.appendChild(copyBtn);
       } else {
-        headerSpan.textContent = "오류 발생";
+        headerSpan.textContent = typeof I18N !== "undefined" ? I18N.t("errorHeader", [], currentLang) : "오류 발생";
         headerSpan.style.color = "#D13438";
-        contentDiv.textContent = response ? response.translatedText : "응답을 받지 못했습니다.";
+        const defaultNoResponse = typeof I18N !== "undefined" ? I18N.t("noResponseError", [], currentLang) : "응답을 받지 못했습니다.";
+        contentDiv.textContent = response ? response.translatedText : defaultNoResponse;
       }
     });
   }
