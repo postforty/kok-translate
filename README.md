@@ -70,6 +70,10 @@ A **Google Gemini API Key** is required for translation.
 
 ## 📜 Changelog
 
+### v1.2
+* **🛡️ Top Layer & Dialog Modal Support (Popover API):** Resolved an issue where translation tooltips were hidden behind HTML5 `<dialog>` modals and Top Layer elements by integrating modern Popover API (`popover="manual"`) and max `z-index` (`2147483647`).
+* **✨ Overlay Stability:** Ensured marquee drag boxes and tooltips always render on top of modern web modals and dialog components.
+
 ### v1.1
 * **🌐 Full i18n & Multilingual Support:** Comprehensive Korean and English UI support with automatic browser language detection and manual language switching.
 * **⚙️ Custom Gemini Model IDs:** Enter custom Gemini model IDs directly in settings in addition to the default `gemini-3.1-flash-lite`.

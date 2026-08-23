@@ -21,7 +21,9 @@ if (!window.hasInjectedKokTranslate) {
     style.textContent = `
       .kok-tooltip {
         position: absolute;
-        z-index: 9999999;
+        margin: 0;
+        inset: unset;
+        z-index: 2147483647;
         background: #fff;
         border: 2px solid ${TARGET_COLOR};
         border-radius: 8px;
@@ -35,6 +37,7 @@ if (!window.hasInjectedKokTranslate) {
         display: flex;
         flex-direction: column;
         gap: 10px;
+        box-sizing: border-box;
       }
       .kok-tooltip-header {
         display: flex;
@@ -82,10 +85,13 @@ if (!window.hasInjectedKokTranslate) {
       }
       .kok-marquee-box {
         position: fixed;
+        margin: 0;
+        inset: unset;
         border: 2px dashed ${TARGET_COLOR};
         background: rgba(138, 43, 226, 0.2);
-        z-index: 9999999;
+        z-index: 2147483647;
         pointer-events: none;
+        box-sizing: border-box;
       }
     `;
     document.head.appendChild(style);
@@ -146,11 +152,17 @@ if (!window.hasInjectedKokTranslate) {
 
     marqueeBox = document.createElement("div");
     marqueeBox.className = "kok-marquee-box";
+    if (marqueeBox.showPopover) {
+      marqueeBox.setAttribute("popover", "manual");
+    }
     marqueeBox.style.left = `${startX}px`;
     marqueeBox.style.top = `${startY}px`;
     marqueeBox.style.width = "0px";
     marqueeBox.style.height = "0px";
     document.body.appendChild(marqueeBox);
+    if (marqueeBox.showPopover) {
+      marqueeBox.showPopover();
+    }
 
     clearHighlight();
   }
@@ -287,6 +299,9 @@ if (!window.hasInjectedKokTranslate) {
 
     const tooltip = document.createElement("div");
     tooltip.className = "kok-tooltip";
+    if (tooltip.showPopover) {
+      tooltip.setAttribute("popover", "manual");
+    }
     
     tooltip.innerHTML = `
       <div class="kok-tooltip-header">
@@ -299,6 +314,9 @@ if (!window.hasInjectedKokTranslate) {
     `;
 
     document.body.appendChild(tooltip);
+    if (tooltip.showPopover) {
+      tooltip.showPopover();
+    }
     currentTooltip = tooltip;
 
     const rect = tooltip.getBoundingClientRect();
