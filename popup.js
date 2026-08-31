@@ -21,15 +21,31 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     btn.addEventListener("click", async () => {
       // Ensure content script and i18n module are injected
-      await chrome.scripting.executeScript({
-        target: { tabId: tab.id, allFrames: true },
-        files: ["i18n.js", "content.js"]
-      });
+      try {
+        await chrome.scripting.executeScript({
+          target: { tabId: tab.id, allFrames: true },
+          files: ["i18n.js", "content.js"]
+        });
+      } catch (e) {
+        // allFrames 실패 시 메인 프레임 단독 주입 시도
+        try {
+          await chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            files: ["i18n.js", "content.js"]
+          });
+        } catch (err) {
+          console.warn("스크립트 주입 경고:", err);
+        }
+      }
 
       if (isActive) {
-        chrome.tabs.sendMessage(tab.id, { action: "stop_hover_selection" });
+        await chrome.tabs.sendMessage(tab.id, { action: "stop_hover_selection" }).catch((err) => {
+          console.warn("sendMessage warning:", err);
+        });
       } else {
-        chrome.tabs.sendMessage(tab.id, { action: "start_hover_selection" });
+        await chrome.tabs.sendMessage(tab.id, { action: "start_hover_selection" }).catch((err) => {
+          console.warn("sendMessage warning:", err);
+        });
       }
       window.close();
     });

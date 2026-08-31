@@ -99,13 +99,29 @@ if (!window.hasInjectedKokTranslate) {
 
   injectStyles();
 
+  // Shadow DOM 내부 실제 요소를 가져오고 확장 프로그램 자체 UI는 배제하는 헬퍼 함수
+  function getDeepTarget(e) {
+    const path = e.composedPath ? e.composedPath() : [e.target];
+    for (const el of path) {
+      if (!el || el === window || el === document || el.nodeType !== 1) continue;
+      if ((el.classList && el.classList.contains("kok-tooltip")) ||
+          (el.closest && el.closest(".kok-tooltip")) ||
+          (el.classList && el.classList.contains("kok-marquee-box")) ||
+          (el.closest && el.closest(".kok-marquee-box"))) {
+        return null;
+      }
+      return el;
+    }
+    return e.target;
+  }
+
   function startSelection() {
     window.hasStartedSelection = true;
     document.addEventListener("mousedown", mouseDownHandler, true);
     document.addEventListener("mousemove", mouseMoveHandler, true);
     document.addEventListener("mouseup", mouseUpHandler, true);
     document.addEventListener("click", clickHandler, true);
-    document.addEventListener("keydown", escapeHandler);
+    document.addEventListener("keydown", escapeHandler, true);
   }
 
   function stopSelection() {
@@ -114,7 +130,7 @@ if (!window.hasInjectedKokTranslate) {
     document.removeEventListener("mousemove", mouseMoveHandler, true);
     document.removeEventListener("mouseup", mouseUpHandler, true);
     document.removeEventListener("click", clickHandler, true);
-    document.removeEventListener("keydown", escapeHandler);
+    document.removeEventListener("keydown", escapeHandler, true);
     
     clearHighlight();
     if (marqueeBox) {
@@ -139,7 +155,9 @@ if (!window.hasInjectedKokTranslate) {
   }
 
   function mouseDownHandler(e) {
-    if (e.target.closest('.kok-tooltip') || e.button !== 0) return;
+    if (e.button !== 0) return;
+    const target = getDeepTarget(e);
+    if (!target) return;
 
     ignoreNextClick = false; // Reset ignore flag on a new interaction
 
@@ -168,8 +186,6 @@ if (!window.hasInjectedKokTranslate) {
   }
 
   function mouseMoveHandler(e) {
-    if (e.target.closest('.kok-tooltip')) return;
-
     if (isDragging) {
       const currentX = e.clientX;
       const currentY = e.clientY;
@@ -186,12 +202,15 @@ if (!window.hasInjectedKokTranslate) {
       return;
     }
 
+    const target = getDeepTarget(e);
+    if (!target) return;
+
     // 일반 호버 로직
-    if (highlightedElement === e.target) return;
+    if (highlightedElement === target) return;
 
     clearHighlight();
     
-    highlightedElement = e.target;
+    highlightedElement = target;
     originalOutline = highlightedElement.style.outline;
     originalBackgroundColor = highlightedElement.style.backgroundColor;
 
@@ -201,31 +220,53 @@ if (!window.hasInjectedKokTranslate) {
 
   function getTextInRect(rect) {
     let selectedText = [];
-    // TreeWalker를 사용하여 모든 텍스트 노드를 순회
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
-    let node;
-    while (node = walker.nextNode()) {
-      if (!node.nodeValue.trim()) continue;
-      
-      const range = document.createRange();
-      range.selectNodeContents(node);
-      const nodeRect = range.getBoundingClientRect();
-      
-      // Check intersection
-      if (
-        nodeRect.left < rect.right &&
-        nodeRect.right > rect.left &&
-        nodeRect.top < rect.bottom &&
-        nodeRect.bottom > rect.top
-      ) {
-        selectedText.push(node.nodeValue.trim());
+    
+    function collectTextNodes(rootNode) {
+      if (!rootNode) return;
+
+      const walker = document.createTreeWalker(rootNode, NodeFilter.SHOW_TEXT, {
+        acceptNode: (node) => {
+          if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          const parent = node.parentElement;
+          if (parent && ((parent.closest && parent.closest('.kok-tooltip')) || (parent.closest && parent.closest('.kok-marquee-box')))) {
+            return NodeFilter.FILTER_REJECT;
+          }
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      }, false);
+
+      let node;
+      while (node = walker.nextNode()) {
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        const nodeRect = range.getBoundingClientRect();
+        
+        // Check intersection
+        if (
+          nodeRect.left < rect.right &&
+          nodeRect.right > rect.left &&
+          nodeRect.top < rect.bottom &&
+          nodeRect.bottom > rect.top
+        ) {
+          selectedText.push(node.nodeValue.trim());
+        }
+      }
+
+      // Open Shadow DOM 내부까지 재귀적으로 텍스트 노드 수집
+      const elements = rootNode.querySelectorAll ? rootNode.querySelectorAll("*") : [];
+      for (const el of elements) {
+        if (el.shadowRoot) {
+          collectTextNodes(el.shadowRoot);
+        }
       }
     }
+
+    collectTextNodes(document.body);
     return selectedText.join(' ');
   }
 
   function mouseUpHandler(e) {
-    if (e.target.closest('.kok-tooltip') || e.button !== 0) return;
+    if (e.button !== 0) return;
 
     if (!isDragging) return;
     isDragging = false;
@@ -261,7 +302,7 @@ if (!window.hasInjectedKokTranslate) {
   }
 
   function clickHandler(e) {
-    if (e.target.closest('.kok-tooltip') || e.button !== 0) return;
+    if (e.button !== 0) return;
 
     if (ignoreNextClick) {
       ignoreNextClick = false;
@@ -270,12 +311,14 @@ if (!window.hasInjectedKokTranslate) {
       return;
     }
 
+    const clickedEl = getDeepTarget(e);
+    if (!clickedEl) return;
+
     e.preventDefault();
     e.stopPropagation();
 
     // 마퀴 박스가 성공적으로 텍스트를 추출해서 stopSelection을 호출했다면 여기로 오지 않음.
     // 여기로 왔다면 단일 클릭이므로 요소 텍스트를 번역함.
-    const clickedEl = e.target;
     const textToTranslate = clickedEl.innerText || clickedEl.textContent;
 
     if (!textToTranslate || textToTranslate.trim() === "") {
@@ -340,10 +383,11 @@ if (!window.hasInjectedKokTranslate) {
         tooltip.remove();
         currentTooltip = null;
       }
-      document.removeEventListener('mousedown', outsideClickHandler);
+      document.removeEventListener('mousedown', outsideClickHandler, true);
       
       // Resume selection if translation mode is still globally active
       if (window.isTranslationModeActive) {
+        stopSelection();
         startSelection();
       }
     }
@@ -351,9 +395,13 @@ if (!window.hasInjectedKokTranslate) {
     tooltip.querySelector('.kok-tooltip-close').onclick = closeTooltip;
 
     function outsideClickHandler(e) {
-      if (tooltip && !tooltip.contains(e.target)) {
-        ignoreNextClick = true;
-        closeTooltip();
+      if (tooltip) {
+        const path = e.composedPath ? e.composedPath() : [e.target];
+        const isInsideTooltip = path.some(el => el && (el === tooltip || (el.classList && el.classList.contains("kok-tooltip"))));
+        if (!isInsideTooltip) {
+          ignoreNextClick = true;
+          closeTooltip();
+        }
       }
     }
 
@@ -400,7 +448,9 @@ if (!window.hasInjectedKokTranslate) {
       sendResponse({ isActive: window.isTranslationModeActive === true });
     } else if (request.action === "start_hover_selection") {
       window.isTranslationModeActive = true;
-      if (!window.hasStartedSelection && !currentTooltip) {
+      // 기존 리스너 및 상태 안전 정리 후 시작
+      stopSelection();
+      if (!currentTooltip) {
         startSelection();
       }
     } else if (request.action === "stop_hover_selection") {

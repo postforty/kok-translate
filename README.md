@@ -70,6 +70,12 @@ A **Google Gemini API Key** is required for translation.
 
 ## 📜 Changelog
 
+### v1.3
+* **🛡️ Full Shadow DOM & Web Component Support:** Uses `e.composedPath()` and recursive Shadow Root traversal to precisely target, hover, and drag-translate elements inside Web Components (e.g., Lit, Angular, Polymer, modern Google web apps).
+* **⚡ Capturing Mode Event Listeners:** Event listeners now use the capturing phase to bypass page-level `stopPropagation` interference during hover, click, drag, and ESC key exit.
+* **🔒 Global Host Permissions (`host_permissions`):** Added `<all_urls>` host permissions to ensure reliable script execution and translation across all domains and subframes.
+* **🔄 Selection Lifecycle Stabilization:** Safely cleans up previous selection state and guarantees seamless re-entry when clicking translation toggle buttons in the popup.
+
 ### v1.2
 * **🛡️ Top Layer & Dialog Modal Support (Popover API):** Resolved an issue where translation tooltips were hidden behind HTML5 `<dialog>` modals and Top Layer elements by integrating modern Popover API (`popover="manual"`) and max `z-index` (`2147483647`).
 * **✨ Overlay Stability:** Ensured marquee drag boxes and tooltips always render on top of modern web modals and dialog components.
