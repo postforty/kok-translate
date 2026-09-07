@@ -11,8 +11,8 @@ A Google Chrome Extension that translates any text on a webpage instantly with a
 * **Intuitive Element Selection (DOM Hover & Highlight)**: When translation mode is active, hovering over web elements highlights them with a clean purple dashed border.
 * **Point & Click Translation**: Left-click any highlighted element to instantly translate its text and view results right next to your cursor.
 * **Marquee Drag Selection**: Click and drag a box across the screen to extract and translate multi-paragraph sections or complex layouts at once.
-* **Smart Two-Way LLM Translation**: Uses the Google Gemini API to provide natural, context-aware translations. (Default Smart Auto mode translates Korean to English and foreign languages to Korean, with custom target language support).
-* **Target Translation Language Selection**: Choose your preferred destination language (Smart Auto, Korean, English, Japanese, Chinese, Spanish, French, German, Russian, Vietnamese, etc.) directly in settings.
+* **Unidirectional LLM Translation**: Uses the Google Gemini API to provide natural, context-aware translations strictly to your chosen target language, eliminating LLM distraction and mixed-language errors.
+* **Target Translation Language Selection**: Choose your preferred destination language (Korean, English, Japanese, Chinese, Spanish, French, German, Russian, Vietnamese, etc.) directly in settings.
 * **Custom Gemini Model Support**: Specify custom Gemini model IDs in settings in addition to the default (`gemini-3.1-flash-lite`).
 * **Seamless Tooltip UI**: View translation results without leaving the page, and copy them with one click. Press `ESC` anytime to exit translation mode.
 * **Full i18n & Multilingual Support**: Built-in support for Korean and English UI and user guides. Switch languages anytime or auto-detect system language.
@@ -40,7 +40,7 @@ A **Google Gemini API Key** is required for translation.
 4. Configure the following options and click **Save Settings**:
    - **Gemini API Key**: Paste your Gemini API Key (click the eye icon to toggle visibility).
    - **Gemini Model**: Enter custom model ID (default: `gemini-3.1-flash-lite`).
-   - **Target Language**: Select target translation language (default: `Smart Auto (Korean ↔ English)`, with options for Japanese, Chinese, Spanish, etc.).
+   - **Target Language**: Select target translation language (default: `Korean`, with options for English, Japanese, Chinese, Spanish, etc.).
    - **UI Language**: Select preferred UI language (Auto / Korean / English).
    - **Reset Defaults**: Restore model and language settings to defaults while safely retaining your API key.
 
@@ -71,6 +71,10 @@ A **Google Gemini API Key** is required for translation.
 ---
 
 ## 📜 Changelog
+
+### v1.5
+* **🚀 Strictly Unidirectional Translation:** Removed "Smart Auto" fallback modes to prevent LLM distraction. KokTranslate now strictly translates into your explicitly chosen target language, solving issues with mixed-language text or strict language selections falling back to English.
+* **⚙️ Default Language Update:** Default target language changed from Smart Auto to Korean.
 
 ### v1.4
 * **🌐 Custom Target Language Support:** Choose your preferred translation language (Smart Auto, Korean, English, Japanese, Chinese, Spanish, French, German, Russian, Vietnamese, etc.) in settings.
