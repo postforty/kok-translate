@@ -12,19 +12,10 @@ const LANGUAGE_NAMES = {
   vi: "Vietnamese"
 };
 
-function buildTranslationPrompt(text, targetLang = "auto") {
-  if (!targetLang || targetLang === "auto") {
-    return `Determine the PRIMARY language of the given text.
-- If the primary language is Korean, translate the text into English naturally.
-- If the primary language is NOT Korean, translate the text into Korean naturally.
-Keep proper nouns, brand names, or technical terms in their original language if appropriate.
-Output ONLY the translated text without any conversational text or quotes.
-
-Text to translate:
-${text}`;
-  }
-
-  const targetName = LANGUAGE_NAMES[targetLang] || targetLang;
+function buildTranslationPrompt(text, targetLang = "ko") {
+  // auto 설정이 들어오더라도 기본값(ko) 처리
+  const safeLang = (!targetLang || targetLang === "auto") ? "ko" : targetLang;
+  const targetName = LANGUAGE_NAMES[safeLang] || safeLang;
 
   return `Translate the following text into ${targetName} naturally.
 Keep proper nouns, brand names, or technical terms in their original language if appropriate.
@@ -34,7 +25,7 @@ Text to translate:
 ${text}`;
 }
 
-async function translateText(text, apiKey, model = "gemini-3.1-flash-lite", targetLang = "auto") {
+async function translateText(text, apiKey, model = "gemini-3.1-flash-lite", targetLang = "ko") {
   const promptText = buildTranslationPrompt(text, targetLang);
   console.log(`[KokTranslate] Target: ${targetLang}, Model: ${model || "gemini-3.1-flash-lite"}`);
 

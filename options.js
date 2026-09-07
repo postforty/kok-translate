@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 모델 복원 (기본값: gemini-3.1-flash-lite)
     document.getElementById('geminiModel').value = result.geminiModel || 'gemini-3.1-flash-lite';
 
-    // 최종 번역 언어 복원 (기본값: auto)
-    document.getElementById('targetLanguage').value = result.targetLanguage || 'auto';
+    // 최종 번역 언어 복원 (기본값: ko)
+    document.getElementById('targetLanguage').value = result.targetLanguage || 'ko';
 
     // UI 언어 복원
     const uiLang = result.uiLanguage || 'auto';
@@ -97,7 +97,7 @@ document.getElementById('resetBtn').addEventListener('click', async () => {
   if (!confirm(confirmMsg)) return;
 
   const defaultModel = 'gemini-3.1-flash-lite';
-  const defaultTargetLang = 'auto';
+  const defaultTargetLang = 'ko';
   const defaultLang = 'auto';
 
   // 폼 UI 복원
