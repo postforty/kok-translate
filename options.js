@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   await I18N.initDOM();
 
   // 2. 저장된 설정값 불러오기
-  chrome.storage.sync.get(['geminiApiKey', 'geminiModel', 'uiLanguage'], (result) => {
+  chrome.storage.sync.get(['geminiApiKey', 'geminiModel', 'targetLanguage', 'uiLanguage'], (result) => {
     if (result.geminiApiKey) {
       document.getElementById('apiKey').value = result.geminiApiKey;
     }
@@ -11,12 +11,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 모델 복원 (기본값: gemini-3.1-flash-lite)
     document.getElementById('geminiModel').value = result.geminiModel || 'gemini-3.1-flash-lite';
 
+    // 최종 번역 언어 복원 (기본값: auto)
+    document.getElementById('targetLanguage').value = result.targetLanguage || 'auto';
+
     // UI 언어 복원
     const uiLang = result.uiLanguage || 'auto';
     document.getElementById('uiLanguage').value = uiLang;
   });
 
-  // 3. 언어 선택 변경 시 실시간 UI 미리보기 반영
+  // 3. 언어 선택 변경 시 실시간 UI 미리보기 반영 및 자동 저장
   document.getElementById('uiLanguage').addEventListener('change', (e) => {
     const selected = e.target.value;
     let targetLang = selected;
@@ -25,6 +28,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       targetLang = navLang.startsWith('ko') ? 'ko' : 'en';
     }
     I18N.applyI18nToDOM(document, targetLang);
+    saveSettings(false);
+  });
+
+  // 3-1. 최종 번역 언어 선택 변경 시 자동 저장
+  document.getElementById('targetLanguage').addEventListener('change', () => {
+    saveSettings(true);
   });
 
   // 4. 비밀번호 표시/숨기기 아이콘 토글
@@ -48,27 +57,36 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-// 5. 설정 저장
-document.getElementById('saveBtn').addEventListener('click', () => {
+// 설정 저장 공통 함수
+function saveSettings(showStatus = true) {
   const apiKey = document.getElementById('apiKey').value.trim();
   const rawModel = document.getElementById('geminiModel').value.trim();
   const selectedModel = rawModel || 'gemini-3.1-flash-lite';
+  const targetLanguage = document.getElementById('targetLanguage').value;
   const uiLanguage = document.getElementById('uiLanguage').value;
   
   chrome.storage.sync.set({ 
     geminiApiKey: apiKey,
     geminiModel: selectedModel,
+    targetLanguage: targetLanguage,
     uiLanguage: uiLanguage
   }, async () => {
     const activeLang = await I18N.getEffectiveLanguage();
     I18N.applyI18nToDOM(document, activeLang);
 
-    const status = document.getElementById('status');
-    status.textContent = I18N.t('saveSuccess', [], activeLang);
-    setTimeout(() => {
-      status.textContent = '';
-    }, 2000);
+    if (showStatus) {
+      const status = document.getElementById('status');
+      status.textContent = I18N.t('saveSuccess', [], activeLang);
+      setTimeout(() => {
+        status.textContent = '';
+      }, 2000);
+    }
   });
+}
+
+// 5. 저장하기 버튼 클릭
+document.getElementById('saveBtn').addEventListener('click', () => {
+  saveSettings(true);
 });
 
 // 6. 기본값 초기화
@@ -79,15 +97,18 @@ document.getElementById('resetBtn').addEventListener('click', async () => {
   if (!confirm(confirmMsg)) return;
 
   const defaultModel = 'gemini-3.1-flash-lite';
+  const defaultTargetLang = 'auto';
   const defaultLang = 'auto';
 
   // 폼 UI 복원
   document.getElementById('geminiModel').value = defaultModel;
+  document.getElementById('targetLanguage').value = defaultTargetLang;
   document.getElementById('uiLanguage').value = defaultLang;
 
   // 스토리지에 기본값 저장 (API 키는 유지)
   chrome.storage.sync.set({
     geminiModel: defaultModel,
+    targetLanguage: defaultTargetLang,
     uiLanguage: defaultLang
   }, async () => {
     const newLang = await I18N.getEffectiveLanguage();

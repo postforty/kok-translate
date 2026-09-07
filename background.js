@@ -1,12 +1,43 @@
 importScripts("i18n.js");
 
-async function translateText(text, apiKey, model = "gemini-3.1-flash-lite") {
-  const promptText = `Translate the following text to Korean naturally.
-If it is already in Korean, translate it to English.
-Only output the translated text without any conversational text or quotes.
+const LANGUAGE_NAMES = {
+  ko: "Korean",
+  en: "English",
+  ja: "Japanese",
+  zh: "Chinese",
+  es: "Spanish",
+  fr: "French",
+  de: "German",
+  ru: "Russian",
+  vi: "Vietnamese"
+};
+
+function buildTranslationPrompt(text, targetLang = "auto") {
+  if (!targetLang || targetLang === "auto") {
+    return `Translate the given text according to the following rules:
+- If the text is NOT in Korean, translate it into Korean naturally.
+- If the text is ALREADY in Korean, translate it into English naturally.
+Output ONLY the translated text without any conversational text or quotes.
 
 Text to translate:
 ${text}`;
+  }
+
+  const targetName = LANGUAGE_NAMES[targetLang] || targetLang;
+  const fallbackName = targetName.toLowerCase() === "english" ? "Korean" : "English";
+
+  return `Translate the given text according to the following rules:
+- If the text is NOT in ${targetName}, translate it into ${targetName} naturally.
+- If the text is ALREADY in ${targetName}, translate it into ${fallbackName} naturally.
+Output ONLY the translated text without any conversational text or quotes.
+
+Text to translate:
+${text}`;
+}
+
+async function translateText(text, apiKey, model = "gemini-3.1-flash-lite", targetLang = "auto") {
+  const promptText = buildTranslationPrompt(text, targetLang);
+  console.log(`[KokTranslate] Target: ${targetLang}, Model: ${model || "gemini-3.1-flash-lite"}`);
 
   const selectedModel = model || "gemini-3.1-flash-lite";
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${apiKey}`;
@@ -50,12 +81,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 async function handleTranslation(originalText) {
-  const syncConfig = await chrome.storage.sync.get(["geminiApiKey", "geminiModel"]);
+  const syncConfig = await chrome.storage.sync.get(["geminiApiKey", "geminiModel", "targetLanguage"]);
   const activeLang = await I18N.getEffectiveLanguage();
+  console.log(`[KokTranslate] Loaded targetLanguage from storage: ${syncConfig.targetLanguage}`);
 
   if (!syncConfig.geminiApiKey) {
     return I18N.t("apiKeyRequiredMsg", [], activeLang);
   } else {
-    return await translateText(originalText, syncConfig.geminiApiKey, syncConfig.geminiModel);
+    return await translateText(originalText, syncConfig.geminiApiKey, syncConfig.geminiModel, syncConfig.targetLanguage);
   }
 }

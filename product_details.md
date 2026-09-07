@@ -27,7 +27,7 @@ No more tedious copy-and-pasting into external translation tabs! Just point, cli
 1. 🎯 Intuitive Point & Click Translation: Hover over any web element to highlight it with a purple dashed outline, and left-click to translate immediately.
 2. 🖱️ Marquee Drag Selection: Hold and drag a box across the screen to capture and translate multi-paragraph sections or complex layouts at once.
 3. 🛡️ Modern Web Apps & Shadow DOM Support: Deeply inspects and translates text inside Web Components and Shadow Roots (Lit, Angular, Polymer, modern Google web apps, etc.).
-4. 🤖 Smart Two-Way AI Translation: Powered by Google Gemini API, automatically translating foreign languages into Korean and Korean text into clear English.
+4. 🤖 Smart Two-Way & Custom Target Language Translation: Powered by Google Gemini API, automatically translating foreign languages into Korean and Korean text into clear English by default, while supporting custom target destination languages (Japanese, Chinese, Spanish, French, etc.).
 5. ⚙️ Custom Gemini Model IDs: Supports custom model IDs (e.g. gemini-3.1-flash-lite, gemini-2.5-flash, gemini-3.1-pro-preview) to match your performance and accuracy preferences.
 6. 📋 Instant Tooltip & One-Click Copy: View results in place with a responsive loading spinner, and copy the translated text directly to your clipboard with a single click.
 7. 🌐 Full i18n & Multilingual Support: Built-in Korean and English UI with automatic browser language detection and manual language switching.
@@ -62,7 +62,7 @@ Experience the fastest and smartest on-page translation workflow with KokTransla
 1. 🎯 직관적인 포인트 & 클릭 번역: 마우스를 올리면 번역될 요소가 보라색 점선 박스로 강조되며, 클릭 한 번으로 즉시 번역됩니다.
 2. 🖱️ 마퀴(Marquee) 드래그 영역 번역: 긴 문단이나 여러 요소에 걸친 텍스트도 마우스 좌클릭 드래그로 네모 박스를 그려 한 번에 묶어 번역할 수 있습니다.
 3. 🛡️ Shadow DOM & 최신 웹앱 완벽 지원: 웹 컴포넌트(Lit, Angular, Polymer 등) 및 Shadow DOM(shadowRoot)으로 캡슐화된 최신 웹 애플리케이션에서도 내부 요소를 정밀하게 탐색하고 번역합니다.
-4. 🤖 LLM 기반 스마트 양방향 자동 번역: 번역 방향을 수동으로 바꿀 필요 없이, 영어나 일본어 등 외국어는 한국어로, 한국어는 영어로 Gemini가 문맥을 파악해 똑똑하게 번역합니다.
+4. 🤖 LLM 기반 스마트 양방향 및 다국어 타깃 번역: 번역 방향을 수동으로 바꿀 필요 없이 기본적으로 영어나 외국어는 한국어로, 한국어는 영어로 Gemini가 문맥을 파악해 똑똑하게 번역하며, 설정에서 원하는 최종 번역 언어(일본어, 중국어, 스페인어 등)를 자유롭게 지정할 수 있습니다.
 5. ⚙️ 커스텀 Gemini 모델 지원: 기본 모델(gemini-3.1-flash-lite) 외에 최신 모델(gemini-2.5-flash, gemini-3.1-pro-preview 등)을 설정에서 자유롭게 지정할 수 있습니다.
 6. 📋 편리한 제자리 툴팁 & 원클릭 복사: 마우스 커서 위치에 로딩 스피너와 함께 깔끔한 말풍선(툴팁) 형태로 결과가 표시되며, [복사] 버튼으로 즉시 클립보드에 복사할 수 있습니다.
 7. 🌐 글로벌 다국어(i18n) 완벽 지원: 한국어 및 영어(English) UI를 완벽하게 지원하며, 브라우저 시스템 언어 자동 감지 또는 설정에서 수동 고정이 가능합니다.
