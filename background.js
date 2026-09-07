@@ -24,11 +24,8 @@ ${text}`;
   }
 
   const targetName = LANGUAGE_NAMES[targetLang] || targetLang;
-  const fallbackName = targetName.toLowerCase() === "english" ? "Korean" : "English";
 
-  return `Translate the given text according to the following rules:
-- If the text is NOT in ${targetName}, translate it into ${targetName} naturally.
-- If the text is ALREADY in ${targetName}, translate it into ${fallbackName} naturally.
+  return `Translate the following text into ${targetName} naturally.
 Output ONLY the translated text without any conversational text or quotes.
 
 Text to translate:
