@@ -33,6 +33,7 @@ No more tedious copy-and-pasting into external translation tabs! Just point, cli
 7. 🌐 Full i18n & Multilingual Support: Built-in Korean and English UI with automatic browser language detection and manual language switching.
 8. 🛡️ Safe & Effortless Exit (ESC): Press ESC or click outside the tooltip anytime to seamlessly dismiss translation mode and resume normal browsing.
 9. 🔒 Privacy & Security: Your Gemini API Key is stored safely in your browser's local synchronized storage (chrome.storage.sync) and is never transmitted to any third-party server.
+10. 📝 Built-in Markdown Viewer: Beautifully renders markdown formatting (code blocks, bold, lists, quotes) with a lightweight XSS-safe parser.
 
 Experience the fastest and smartest on-page translation workflow with KokTranslate today!
 ```
@@ -68,6 +69,7 @@ Experience the fastest and smartest on-page translation workflow with KokTransla
 7. 🌐 글로벌 다국어(i18n) 완벽 지원: 한국어 및 영어(English) UI를 완벽하게 지원하며, 브라우저 시스템 언어 자동 감지 또는 설정에서 수동 고정이 가능합니다.
 8. 🛡️ ESC 간편 종료 및 취소: 번역 모드를 종료하고 싶을 땐 언제든지 키보드의 ESC 키를 누르거나 툴팁 바깥을 클릭하면 안전하게 원래 브라우징 상태로 돌아옵니다.
 9. 🔒 철저한 개인정보 보호: 사용자의 Gemini API Key는 브라우저 내부 보안 스토리지(chrome.storage.sync)에만 암호화되어 안전하게 보관되며 외부 서버로 전송되지 않습니다.
+10. 📝 마크다운 서식 뷰어 탑재: AI가 생성한 코드 블록, 볼드, 목록, 인용문 등을 안전한 마크다운 서식으로 즉시 변환하여 뛰어난 가독성을 제공합니다.
 
 콕! 찍어 바로 번역하는 가장 편리한 웹 브라우징, 지금 KokTranslate로 시작해 보세요!
 ```

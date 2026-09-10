@@ -17,9 +17,10 @@ function buildTranslationPrompt(text, targetLang = "ko") {
   const safeLang = (!targetLang || targetLang === "auto") ? "ko" : targetLang;
   const targetName = LANGUAGE_NAMES[safeLang] || safeLang;
 
-  return `Translate the following text into ${targetName} naturally.
-Keep proper nouns, brand names, or technical terms in their original language if appropriate.
-Output ONLY the translated text without any conversational text or quotes.
+  return `Translate all titles, headings, and body content of the following text into ${targetName} naturally and completely.
+Only preserve distinct proper names (like product/brand names such as "Antigravity"), URLs, or code identifiers in their original English; all other general words, headings (e.g. "Getting Started", "Download", "Installation"), and phrases MUST be translated into ${targetName}.
+Preserve the structural format using Markdown (e.g. use markdown headers like '### ' for titles/headings, bold '**' for emphasized words or selectable options, bullet/numbered lists for steps, and inline code '\`' for commands or terms).
+Output ONLY the translated text in clean Markdown without any conversational text or outer quotes.
 
 Text to translate:
 ${text}`;

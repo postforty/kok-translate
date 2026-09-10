@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   await I18N.initDOM();
 
   // 2. 저장된 설정값 불러오기
-  chrome.storage.sync.get(['geminiApiKey', 'geminiModel', 'targetLanguage', 'uiLanguage'], (result) => {
+  chrome.storage.sync.get(['geminiApiKey', 'geminiModel', 'targetLanguage', 'uiLanguage', 'enableMarkdown'], (result) => {
     if (result.geminiApiKey) {
       document.getElementById('apiKey').value = result.geminiApiKey;
     }
@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // UI 언어 복원
     const uiLang = result.uiLanguage || 'auto';
     document.getElementById('uiLanguage').value = uiLang;
+
+    // 마크다운 서식 뷰어 사용 여부 복원 (기본값: true)
+    document.getElementById('enableMarkdown').checked = result.enableMarkdown !== false;
   });
 
   // 3. 언어 선택 변경 시 실시간 UI 미리보기 반영 및 자동 저장
@@ -33,6 +36,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // 3-1. 최종 번역 언어 선택 변경 시 자동 저장
   document.getElementById('targetLanguage').addEventListener('change', () => {
+    saveSettings(true);
+  });
+
+  // 3-2. 마크다운 서식 뷰어 선택 변경 시 자동 저장
+  document.getElementById('enableMarkdown').addEventListener('change', () => {
     saveSettings(true);
   });
 
@@ -64,12 +72,14 @@ function saveSettings(showStatus = true) {
   const selectedModel = rawModel || 'gemini-3.1-flash-lite';
   const targetLanguage = document.getElementById('targetLanguage').value;
   const uiLanguage = document.getElementById('uiLanguage').value;
+  const enableMarkdown = document.getElementById('enableMarkdown').checked;
   
   chrome.storage.sync.set({ 
     geminiApiKey: apiKey,
     geminiModel: selectedModel,
     targetLanguage: targetLanguage,
-    uiLanguage: uiLanguage
+    uiLanguage: uiLanguage,
+    enableMarkdown: enableMarkdown
   }, async () => {
     const activeLang = await I18N.getEffectiveLanguage();
     I18N.applyI18nToDOM(document, activeLang);
@@ -99,17 +109,20 @@ document.getElementById('resetBtn').addEventListener('click', async () => {
   const defaultModel = 'gemini-3.1-flash-lite';
   const defaultTargetLang = 'ko';
   const defaultLang = 'auto';
+  const defaultEnableMarkdown = true;
 
   // 폼 UI 복원
   document.getElementById('geminiModel').value = defaultModel;
   document.getElementById('targetLanguage').value = defaultTargetLang;
   document.getElementById('uiLanguage').value = defaultLang;
+  document.getElementById('enableMarkdown').checked = defaultEnableMarkdown;
 
   // 스토리지에 기본값 저장 (API 키는 유지)
   chrome.storage.sync.set({
     geminiModel: defaultModel,
     targetLanguage: defaultTargetLang,
-    uiLanguage: defaultLang
+    uiLanguage: defaultLang,
+    enableMarkdown: defaultEnableMarkdown
   }, async () => {
     const newLang = await I18N.getEffectiveLanguage();
     I18N.applyI18nToDOM(document, newLang);
