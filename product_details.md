@@ -28,7 +28,7 @@ No more tedious copy-and-pasting into external translation tabs! Just point, cli
 2. 🖱️ Marquee Drag Selection: Hold and drag a box across the screen to capture and translate multi-paragraph sections or complex layouts at once.
 3. 🛡️ Modern Web Apps & Shadow DOM Support: Deeply inspects and translates text inside Web Components and Shadow Roots (Lit, Angular, Polymer, modern Google web apps, etc.).
 4. 🤖 Strictly Unidirectional LLM Translation: Powered by Google Gemini API, translations are strictly directed into your explicitly chosen target language (Korean, English, Japanese, Chinese, Spanish, French, etc.) preventing mixed-language distraction.
-5. ⚙️ Custom Gemini Model IDs: Supports custom model IDs (e.g. gemini-3.1-flash-lite, gemini-2.5-flash, gemini-3.1-pro-preview) to match your performance and accuracy preferences.
+5. ⚙️ Custom Gemini Model IDs: Supports custom model IDs (e.g. gemini-3.5-flash-lite, gemini-2.5-flash, gemini-3.1-pro-preview) to match your performance and accuracy preferences.
 6. 📋 Instant Tooltip & One-Click Copy: View results in place with a responsive loading spinner, and copy the translated text directly to your clipboard with a single click.
 7. 🌐 Full i18n & Multilingual Support: Built-in Korean and English UI with automatic browser language detection and manual language switching.
 8. 🛡️ Safe & Effortless Exit (ESC): Press ESC or click outside the tooltip anytime to seamlessly dismiss translation mode and resume normal browsing.
@@ -64,7 +64,7 @@ Experience the fastest and smartest on-page translation workflow with KokTransla
 2. 🖱️ 마퀴(Marquee) 드래그 영역 번역: 긴 문단이나 여러 요소에 걸친 텍스트도 마우스 좌클릭 드래그로 네모 박스를 그려 한 번에 묶어 번역할 수 있습니다.
 3. 🛡️ Shadow DOM & 최신 웹앱 완벽 지원: 웹 컴포넌트(Lit, Angular, Polymer 등) 및 Shadow DOM(shadowRoot)으로 캡슐화된 최신 웹 애플리케이션에서도 내부 요소를 정밀하게 탐색하고 번역합니다.
 4. 🤖 LLM 기반 100% 단방향 강제 번역: 인공지능이 혼용 텍스트에 흔들리지 않도록 오직 사용자가 지정한 '최종 번역 언어'(기본값 한국어, 일본어, 영어 등)로만 무조건 번역되게 하여 오류 없는 깔끔한 결과를 보장합니다.
-5. ⚙️ 커스텀 Gemini 모델 지원: 기본 모델(gemini-3.1-flash-lite) 외에 최신 모델(gemini-2.5-flash, gemini-3.1-pro-preview 등)을 설정에서 자유롭게 지정할 수 있습니다.
+5. ⚙️ 커스텀 Gemini 모델 지원: 기본 모델(gemini-3.5-flash-lite) 외에 최신 모델(gemini-2.5-flash, gemini-3.1-pro-preview 등)을 설정에서 자유롭게 지정할 수 있습니다.
 6. 📋 편리한 제자리 툴팁 & 원클릭 복사: 마우스 커서 위치에 로딩 스피너와 함께 깔끔한 말풍선(툴팁) 형태로 결과가 표시되며, [복사] 버튼으로 즉시 클립보드에 복사할 수 있습니다.
 7. 🌐 글로벌 다국어(i18n) 완벽 지원: 한국어 및 영어(English) UI를 완벽하게 지원하며, 브라우저 시스템 언어 자동 감지 또는 설정에서 수동 고정이 가능합니다.
 8. 🛡️ ESC 간편 종료 및 취소: 번역 모드를 종료하고 싶을 땐 언제든지 키보드의 ESC 키를 누르거나 툴팁 바깥을 클릭하면 안전하게 원래 브라우징 상태로 돌아옵니다.

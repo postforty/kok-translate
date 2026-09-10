@@ -26,11 +26,11 @@ Text to translate:
 ${text}`;
 }
 
-async function translateText(text, apiKey, model = "gemini-3.1-flash-lite", targetLang = "ko") {
+async function translateText(text, apiKey, model = "gemini-3.5-flash-lite", targetLang = "ko") {
   const promptText = buildTranslationPrompt(text, targetLang);
-  console.log(`[KokTranslate] Target: ${targetLang}, Model: ${model || "gemini-3.1-flash-lite"}`);
+  console.log(`[KokTranslate] Target: ${targetLang}, Model: ${model || "gemini-3.5-flash-lite"}`);
 
-  const selectedModel = model || "gemini-3.1-flash-lite";
+  const selectedModel = model || "gemini-3.5-flash-lite";
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${apiKey}`;
   const response = await fetch(url, {
     method: 'POST',

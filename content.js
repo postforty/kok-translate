@@ -155,6 +155,58 @@ if (!window.hasInjectedKokTranslate) {
         background: none;
         padding: 0;
       }
+      .kok-table-container {
+        margin: 8px 0;
+        max-width: 100%;
+        overflow-x: auto;
+        border-radius: 6px;
+        border: 1px solid #e1e4e8;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      }
+      .kok-table-container::-webkit-scrollbar {
+        height: 5px;
+      }
+      .kok-table-container::-webkit-scrollbar-thumb {
+        background: rgba(138, 43, 226, 0.3);
+        border-radius: 3px;
+      }
+      .kok-md-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12.5px;
+        line-height: 1.5;
+        text-align: left;
+      }
+      .kok-md-table th {
+        background: #f8f9fa;
+        color: #24292f;
+        font-weight: 600;
+        padding: 7px 10px;
+        border-bottom: 2px solid #e1e4e8;
+        border-right: 1px solid #eee;
+        white-space: nowrap;
+      }
+      .kok-md-table th:last-child {
+        border-right: none;
+      }
+      .kok-md-table td {
+        padding: 7px 10px;
+        border-bottom: 1px solid #eee;
+        border-right: 1px solid #eee;
+        color: #333;
+      }
+      .kok-md-table td:last-child {
+        border-right: none;
+      }
+      .kok-md-table tr:last-child td {
+        border-bottom: none;
+      }
+      .kok-md-table tr:nth-child(even) td {
+        background: #fafbfc;
+      }
+      .kok-md-table tr:hover td {
+        background: rgba(138, 43, 226, 0.04);
+      }
       .kok-tooltip-copy {
         align-self: flex-end;
         background: ${TARGET_COLOR};
@@ -227,7 +279,32 @@ if (!window.hasInjectedKokTranslate) {
         .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
         .replace(/__([^_]+)__/g, "<strong>$1</strong>")
         .replace(/(^|[^\*])\*([^\*\n]+)\*([^\*]|$)/g, "$1<em>$2</em>$3")
-        .replace(/(^|[^\w])_([^_\n]+)_([^\w]|$)/g, "$1<em>$2</em>$3");
+        .replace(/(^|[^\w])_([^_\n]+)_([^\w]|$)/g, "$1<em>$2</em>$3")
+        .replace(/&lt;br\s*\/?&gt;/gi, "<br>");
+    }
+
+    function splitTableRow(row) {
+      let r = row.trim();
+      if (r.startsWith("|")) r = r.slice(1);
+      if (r.endsWith("|")) r = r.slice(0, -1);
+      return r.split("|").map(cell => cell.trim());
+    }
+
+    function isTableDelimiter(row) {
+      const cells = splitTableRow(row);
+      return cells.length > 0 && cells.every(c => /^:?-+:?$/.test(c.trim()));
+    }
+
+    function getAlignments(delimiterRow) {
+      const cells = splitTableRow(delimiterRow);
+      return cells.map(c => {
+        const trimmed = c.trim();
+        const left = trimmed.startsWith(":");
+        const right = trimmed.endsWith(":");
+        if (left && right) return "center";
+        if (right) return "right";
+        return "left";
+      });
     }
 
     const lines = text.split("\n");
@@ -255,6 +332,40 @@ if (!window.hasInjectedKokTranslate) {
 
       if (!trimmed) {
         closeListsAndQuotes();
+        continue;
+      }
+
+      // 마크다운 테이블 감지
+      if (trimmed.includes("|") && i + 1 < lines.length && isTableDelimiter(lines[i + 1].trim())) {
+        closeListsAndQuotes();
+        const headerRow = trimmed;
+        const delimiterRow = lines[i + 1].trim();
+        const alignments = getAlignments(delimiterRow);
+        const headers = splitTableRow(headerRow);
+
+        let tableHtml = '<div class="kok-table-container"><table class="kok-md-table"><thead><tr>';
+        headers.forEach((h, colIdx) => {
+          const align = alignments[colIdx] || "left";
+          tableHtml += `<th style="text-align:${align}">${formatInline(h)}</th>`;
+        });
+        tableHtml += '</tr></thead><tbody>';
+
+        i += 1; // 구분선 행 건너뛰기
+
+        // 후속 데이터 행 파싱
+        while (i + 1 < lines.length && lines[i + 1].trim().includes("|") && !isTableDelimiter(lines[i + 1].trim())) {
+          i += 1;
+          const rowCells = splitTableRow(lines[i].trim());
+          tableHtml += '<tr>';
+          rowCells.forEach((cell, colIdx) => {
+            const align = alignments[colIdx] || "left";
+            tableHtml += `<td style="text-align:${align}">${formatInline(cell)}</td>`;
+          });
+          tableHtml += '</tr>';
+        }
+
+        tableHtml += '</tbody></table></div>';
+        output.push(tableHtml);
         continue;
       }
 
@@ -462,13 +573,21 @@ if (!window.hasInjectedKokTranslate) {
             return NodeFilter.FILTER_REJECT;
           }
 
-          // 화면에 실제로 보이지 않는 요소 배제
+          // 화면에 실제로 보이지 않는 요소 배제 (display, visibility, opacity, clip)
           try {
             const style = window.getComputedStyle(parent);
             if (style.display === "none" || style.visibility === "hidden" || style.opacity === "0") {
               return NodeFilter.FILTER_REJECT;
             }
+            if (style.clip === "rect(0px, 0px, 0px, 0px)" || style.clip === "rect(0, 0, 0, 0)" || style.clipPath === "inset(50%)") {
+              return NodeFilter.FILTER_REJECT;
+            }
           } catch (err) {}
+
+          // 스크린 리더 전용 숨김 클래스 및 헤딩 앵커 링크 텍스트 배제
+          if (parent.closest && parent.closest(".sr-only, .visually-hidden, .screen-reader-text, [aria-hidden='true'], a.anchor, a.header-anchor, a.hash-link, .anchorjs-link")) {
+            return NodeFilter.FILTER_REJECT;
+          }
 
           return NodeFilter.FILTER_ACCEPT;
         }
@@ -480,8 +599,8 @@ if (!window.hasInjectedKokTranslate) {
         range.selectNodeContents(node);
         const nodeRect = range.getBoundingClientRect();
         
-        // 크기가 없는(보이지 않는) 요소 배제
-        if (nodeRect.width === 0 || nodeRect.height === 0) continue;
+        // 시각적으로 보이지 않는 요소(1~2px 이하 스크린 리더용 요소 등) 배제
+        if (nodeRect.width <= 2 || nodeRect.height <= 2) continue;
 
         // Check intersection
         if (

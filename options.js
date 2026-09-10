@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.getElementById('apiKey').value = result.geminiApiKey;
     }
     
-    // 모델 복원 (기본값: gemini-3.1-flash-lite)
-    document.getElementById('geminiModel').value = result.geminiModel || 'gemini-3.1-flash-lite';
+    // 모델 복원 (기본값: gemini-3.5-flash-lite)
+    document.getElementById('geminiModel').value = result.geminiModel || 'gemini-3.5-flash-lite';
 
     // 최종 번역 언어 복원 (기본값: ko)
     document.getElementById('targetLanguage').value = result.targetLanguage || 'ko';
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 function saveSettings(showStatus = true) {
   const apiKey = document.getElementById('apiKey').value.trim();
   const rawModel = document.getElementById('geminiModel').value.trim();
-  const selectedModel = rawModel || 'gemini-3.1-flash-lite';
+  const selectedModel = rawModel || 'gemini-3.5-flash-lite';
   const targetLanguage = document.getElementById('targetLanguage').value;
   const uiLanguage = document.getElementById('uiLanguage').value;
   const enableMarkdown = document.getElementById('enableMarkdown').checked;
@@ -106,7 +106,7 @@ document.getElementById('resetBtn').addEventListener('click', async () => {
   
   if (!confirm(confirmMsg)) return;
 
-  const defaultModel = 'gemini-3.1-flash-lite';
+  const defaultModel = 'gemini-3.5-flash-lite';
   const defaultTargetLang = 'ko';
   const defaultLang = 'auto';
   const defaultEnableMarkdown = true;
