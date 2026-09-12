@@ -6,5 +6,9 @@
   "extDescription": {
     "message": "웹페이지 요소를 콕! 찍어 바로 번역하는 LLM 기반 크롬 확장 프로그램",
     "description": "확장 프로그램 설명"
+  },
+  "cmdToggleTranslate": {
+    "message": "번역 모드 켜기/끄기 토글",
+    "description": "단축키 설명"
   }
 }

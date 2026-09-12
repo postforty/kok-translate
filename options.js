@@ -134,3 +134,41 @@ document.getElementById('resetBtn').addEventListener('click', async () => {
     }, 2000);
   });
 });
+
+// 7. 연결 테스트 버튼 클릭
+const testBtn = document.getElementById('testConnectionBtn');
+const testStatus = document.getElementById('testStatus');
+
+if (testBtn && testStatus) {
+  testBtn.addEventListener('click', async () => {
+    const activeLang = await I18N.getEffectiveLanguage();
+    const apiKey = document.getElementById('apiKey').value.trim();
+    const model = document.getElementById('geminiModel').value.trim() || 'gemini-3.5-flash-lite';
+
+    if (!apiKey) {
+      testStatus.textContent = I18N.t('apiKeyRequiredMsg', [], activeLang);
+      testStatus.style.color = '#D13438';
+      return;
+    }
+
+    testBtn.disabled = true;
+    testStatus.textContent = I18N.t('testingConnection', [], activeLang);
+    testStatus.style.color = '#666';
+
+    chrome.runtime.sendMessage({ action: 'test_connection', apiKey, model }, (response) => {
+      testBtn.disabled = false;
+      if (chrome.runtime.lastError) {
+        testStatus.textContent = I18N.t('testFailed', [chrome.runtime.lastError.message], activeLang);
+        testStatus.style.color = '#D13438';
+      } else if (response && response.success) {
+        testStatus.textContent = I18N.t('testSuccess', [], activeLang);
+        testStatus.style.color = '#107C10';
+      } else {
+        const errMsg = (response && response.error) || 'Unknown error';
+        testStatus.textContent = I18N.t('testFailed', [errMsg], activeLang);
+        testStatus.style.color = '#D13438';
+      }
+    });
+  });
+}
+

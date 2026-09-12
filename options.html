@@ -69,9 +69,9 @@
   </style>
 </head>
 <body>
-  <h1 data-i18n="optionsTitle">
+  <h1>
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-    <span>KokTranslate 설정</span>
+    <span data-i18n="optionsTitle">KokTranslate 설정</span>
   </h1>
 
   <div class="form-group">
@@ -92,6 +92,10 @@
           <line x1="1" y1="1" x2="23" y2="23"></line>
         </svg>
       </button>
+    </div>
+    <div style="margin-top: 8px; display: flex; align-items: center; gap: 8px;">
+      <button type="button" id="testConnectionBtn" data-i18n="testConnectionBtn" style="padding: 6px 12px; font-size: 12px; cursor: pointer; border: 1px solid #ced4da; border-radius: 4px; background: #fff; color: #495057; font-weight: 500;">연결 테스트</button>
+      <span id="testStatus" style="font-size: 12px;"></span>
     </div>
   </div>
 
@@ -139,6 +143,24 @@
     <button type="button" id="resetBtn" data-i18n="resetBtn">기본값 초기화</button>
   </div>
   <div id="status"></div>
+
+  <div style="margin-top: 20px; padding-top: 12px; border-top: 1px solid #eee;">
+    <p class="help-text" style="color: #666; margin: 0; display: flex; align-items: center; gap: 6px;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #8A2BE2; flex-shrink: 0;">
+        <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+        <line x1="6" y1="8" x2="6.01" y2="8"></line>
+        <line x1="10" y1="8" x2="10.01" y2="8"></line>
+        <line x1="14" y1="8" x2="14.01" y2="8"></line>
+        <line x1="18" y1="8" x2="18.01" y2="8"></line>
+        <line x1="6" y1="12" x2="6.01" y2="12"></line>
+        <line x1="10" y1="12" x2="10.01" y2="12"></line>
+        <line x1="14" y1="12" x2="14.01" y2="12"></line>
+        <line x1="18" y1="12" x2="18.01" y2="12"></line>
+        <line x1="7" y1="16" x2="17" y2="16"></line>
+      </svg>
+      <span data-i18n="cmdToggleTranslate">번역 모드 켜기/끄기 토글 (Ctrl+Shift+X)</span>
+    </p>
+  </div>
 
   <script src="i18n.js"></script>
   <script src="options.js"></script>

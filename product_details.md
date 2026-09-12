@@ -24,16 +24,20 @@ No more tedious copy-and-pasting into external translation tabs! Just point, cli
 - ⚡ Anyone seeking a frictionless, on-page translation experience without leaving the browser tab
 
 [ ✨ Key Features & Highlights ]
-1. 🎯 Intuitive Point & Click Translation: Hover over any web element to highlight it with a purple dashed outline, and left-click to translate immediately.
-2. 🖱️ Marquee Drag Selection: Hold and drag a box across the screen to capture and translate multi-paragraph sections or complex layouts at once.
-3. 🛡️ Modern Web Apps & Shadow DOM Support: Deeply inspects and translates text inside Web Components and Shadow Roots (Lit, Angular, Polymer, modern Google web apps, etc.).
-4. 🤖 Strictly Unidirectional LLM Translation: Powered by Google Gemini API, translations are strictly directed into your explicitly chosen target language (Korean, English, Japanese, Chinese, Spanish, French, etc.) preventing mixed-language distraction.
-5. ⚙️ Custom Gemini Model IDs: Supports custom model IDs (e.g. gemini-3.5-flash-lite, gemini-2.5-flash, gemini-3.1-pro-preview) to match your performance and accuracy preferences.
-6. 📋 Instant Tooltip & One-Click Copy: View results in place with a responsive loading spinner, and copy the translated text directly to your clipboard with a single click.
-7. 🌐 Full i18n & Multilingual Support: Built-in Korean and English UI with automatic browser language detection and manual language switching.
-8. 🛡️ Safe & Effortless Exit (ESC): Press ESC or click outside the tooltip anytime to seamlessly dismiss translation mode and resume normal browsing.
-9. 🔒 Privacy & Security: Your Gemini API Key is stored safely in your browser's local synchronized storage (chrome.storage.sync) and is never transmitted to any third-party server.
-10. 📝 Built-in Markdown Viewer: Beautifully renders markdown formatting (code blocks, bold, lists, quotes) with a lightweight XSS-safe parser.
+1. ⚡ Global Keyboard Shortcut: Toggle translation mode anytime with Ctrl+Shift+X (Cmd+Shift+X on Mac) without touching browser toolbars.
+2. 🎯 Intuitive Point & Click Translation: Hover over any web element to highlight it with a purple dashed outline, and left-click to translate immediately.
+3. 🖱️ Marquee Drag Selection & Edge Auto-Scroll: Drag a box across the screen to capture multi-paragraph sections or tables at once; scrolling automatically engages as you reach the top or bottom edges.
+4. 🔄 Real-Time Source ↔ Translation Toggle: Compare original text and translated output seamlessly with a single click inside the tooltip header.
+5. 📝 Original & Translated Markdown Viewer: Preserves web structures including tables (`<table>`), inline code, bold text, and lists in beautiful, structured markdown formatting.
+6. 🖐️ Draggable Tooltip: Freely grab and reposition the translation tooltip by its header anywhere on the screen.
+7. 🔌 Instant API Test Connection: Test your Gemini API key and model connectivity with one click in the options page.
+8. 🛡️ Modern Web Apps & Shadow DOM Support: Deeply inspects and translates text inside Web Components and Shadow Roots (Lit, Angular, Polymer, modern Google web apps, etc.).
+9. 🤖 Strictly Unidirectional LLM Translation: Powered by Google Gemini API, translations are strictly directed into your explicitly chosen target language (Korean, English, Japanese, Chinese, Spanish, French, etc.) preventing mixed-language distraction.
+10. ⚙️ Custom Gemini Model IDs: Supports custom model IDs (e.g. gemini-3.5-flash-lite, gemini-2.5-flash) to match your performance and accuracy preferences.
+11. 📋 Instant Tooltip & One-Click Copy: View results in place with a responsive loading spinner, and copy the translated text directly to your clipboard with a single click.
+12. 🌐 Full i18n & Multilingual Support: Built-in Korean and English UI with automatic browser language detection and manual language switching.
+13. 🛡️ Safe & Effortless Exit (ESC): Press ESC or click outside the tooltip anytime to seamlessly dismiss translation mode and resume normal browsing.
+14. 🔒 Privacy & Security: Uses official `x-goog-api-key` headers; your API key is stored safely in your browser's synchronized storage and is never transmitted to third-party servers.
 
 Experience the fastest and smartest on-page translation workflow with KokTranslate today!
 ```
@@ -60,16 +64,20 @@ Experience the fastest and smartest on-page translation workflow with KokTransla
 - ⚡ 탭 이동 없이 웹 서핑 흐름을 유지하며 빠른 번역을 원하시는 모든 분
 
 [ ✨ 주요 기능 및 특징 ]
-1. 🎯 직관적인 포인트 & 클릭 번역: 마우스를 올리면 번역될 요소가 보라색 점선 박스로 강조되며, 클릭 한 번으로 즉시 번역됩니다.
-2. 🖱️ 마퀴(Marquee) 드래그 영역 번역: 긴 문단이나 여러 요소에 걸친 텍스트도 마우스 좌클릭 드래그로 네모 박스를 그려 한 번에 묶어 번역할 수 있습니다.
-3. 🛡️ Shadow DOM & 최신 웹앱 완벽 지원: 웹 컴포넌트(Lit, Angular, Polymer 등) 및 Shadow DOM(shadowRoot)으로 캡슐화된 최신 웹 애플리케이션에서도 내부 요소를 정밀하게 탐색하고 번역합니다.
-4. 🤖 LLM 기반 100% 단방향 강제 번역: 인공지능이 혼용 텍스트에 흔들리지 않도록 오직 사용자가 지정한 '최종 번역 언어'(기본값 한국어, 일본어, 영어 등)로만 무조건 번역되게 하여 오류 없는 깔끔한 결과를 보장합니다.
-5. ⚙️ 커스텀 Gemini 모델 지원: 기본 모델(gemini-3.5-flash-lite) 외에 최신 모델(gemini-2.5-flash, gemini-3.1-pro-preview 등)을 설정에서 자유롭게 지정할 수 있습니다.
-6. 📋 편리한 제자리 툴팁 & 원클릭 복사: 마우스 커서 위치에 로딩 스피너와 함께 깔끔한 말풍선(툴팁) 형태로 결과가 표시되며, [복사] 버튼으로 즉시 클립보드에 복사할 수 있습니다.
-7. 🌐 글로벌 다국어(i18n) 완벽 지원: 한국어 및 영어(English) UI를 완벽하게 지원하며, 브라우저 시스템 언어 자동 감지 또는 설정에서 수동 고정이 가능합니다.
-8. 🛡️ ESC 간편 종료 및 취소: 번역 모드를 종료하고 싶을 땐 언제든지 키보드의 ESC 키를 누르거나 툴팁 바깥을 클릭하면 안전하게 원래 브라우징 상태로 돌아옵니다.
-9. 🔒 철저한 개인정보 보호: 사용자의 Gemini API Key는 브라우저 내부 보안 스토리지(chrome.storage.sync)에만 암호화되어 안전하게 보관되며 외부 서버로 전송되지 않습니다.
-10. 📝 마크다운 서식 뷰어 탑재: AI가 생성한 코드 블록, 볼드, 목록, 인용문 등을 안전한 마크다운 서식으로 즉시 변환하여 뛰어난 가독성을 제공합니다.
+1. ⚡ 전역 단축키 지원: 브라우저 어디서나 Ctrl+Shift+X (Mac: Cmd+Shift+X)로 번역 모드를 즉시 켜고 끌 수 있습니다.
+2. 🎯 직관적인 포인트 & 클릭 번역: 마우스를 올리면 번역될 요소가 보라색 점선 박스로 강조되며, 클릭 한 번으로 즉시 번역됩니다.
+3. 🖱️ 마퀴 드래그 & 엣지 오토스크롤: 긴 문단이나 여러 요소, 표도 마우스 드래그로 한 번에 선택하며, 화면 상/하단 가장자리에 닿으면 자동 스크롤되어 긴 페이지도 손쉽게 묶어 번역할 수 있습니다.
+4. 🔄 원문 ↔ 번역문 실시간 상호 대조: 툴팁 상단의 [원문] / [번역] 버튼으로 원본과 번역 결과를 즉시 번갈아 가며 비교할 수 있습니다.
+5. 📝 원문 & 번역문 마크다운 서식 보존: 번역문뿐만 아니라 웹페이지 원문의 표, 인라인 코드, 볼드체 서식을 마크다운으로 온전히 유지하여 깔끔한 서식 뷰를 제공합니다.
+6. 🖐️ 툴팁 헤더 자유 이동: 툴팁 상단 헤더를 마우스로 잡고 드래그하여 원하는 위치로 이동시킬 수 있어 본문 텍스트를 가리지 않습니다.
+7. 🔌 API 연결 테스트: 설정 페이지에서 [연결 테스트] 버튼으로 API 키와 모델의 정상 작동 여부를 즉시 확인할 수 있습니다.
+8. 🛡️ Shadow DOM & 최신 웹앱 완벽 지원: 웹 컴포넌트(Lit, Angular, Polymer 등) 및 Shadow DOM(shadowRoot) 내부 요소까지 정밀하게 탐색하고 번역합니다.
+9. 🤖 LLM 기반 100% 단방향 강제 번역: 오직 사용자가 지정한 타깃 언어로만 무조건 번역되어 오류 없는 깔끔한 결과를 보장합니다.
+10. ⚙️ 커스텀 Gemini 모델 지원: 기본 모델(gemini-3.5-flash-lite) 외에 최신 모델(gemini-2.5-flash 등)을 설정에서 자유롭게 지정할 수 있습니다.
+11. 📋 제자리 툴팁 & 원클릭 복사: 마우스 커서 위치에 깔끔한 툴팁 형태로 결과가 표시되며, [복사] 버튼으로 마크다운 텍스트를 즉시 복사할 수 있습니다.
+12. 🌐 글로벌 다국어(i18n) 완벽 지원: 한국어 및 영어(English) UI를 완벽하게 지원합니다.
+13. 🛡️ ESC 간편 종료: 언제든지 키보드의 ESC 키를 누르거나 툴팁 바깥을 클릭하면 원래 브라우징 상태로 안전하게 돌아옵니다.
+14. 🔒 철저한 보안: 공식 보안 헤더(x-goog-api-key)를 사용하며, API 키는 브라우저 내부 스토리지(chrome.storage.sync)에만 안전하게 보관됩니다.
 
 콕! 찍어 바로 번역하는 가장 편리한 웹 브라우징, 지금 KokTranslate로 시작해 보세요!
 ```

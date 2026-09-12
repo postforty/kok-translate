@@ -49,13 +49,21 @@
         resetBtn: "기본값 초기화",
         resetConfirm: "설정을 기본값으로 초기화하시겠습니까? (API 키는 유지됩니다)",
         resetSuccess: "기본값으로 초기화되었습니다.",
+        testConnectionBtn: "연결 테스트",
+        testingConnection: "연결 테스트 중...",
+        testSuccess: "연결 성공! Gemini API가 정상 작동합니다.",
+        testFailed: "연결 실패: $1",
+        cmdToggleTranslate: "번역 모드 켜기/끄기 토글 (Ctrl+Shift+X)",
 
         // Content Script UI (Tooltip)
         translatingHeader: "번역 중...",
         resultHeader: "번역 결과",
+        originalHeader: "원문",
         errorHeader: "오류 발생",
         copyBtn: "복사",
         copiedBtn: "복사됨!",
+        toggleOriginal: "원문",
+        toggleTranslation: "번역",
         noResponseError: "응답을 받지 못했습니다.",
 
         // Background / API Messages
@@ -106,13 +114,21 @@
         resetBtn: "Reset Defaults",
         resetConfirm: "Reset settings to defaults? (API Key will be kept)",
         resetSuccess: "Settings reset to defaults.",
+        testConnectionBtn: "Test Connection",
+        testingConnection: "Testing connection...",
+        testSuccess: "Connection successful! Gemini API is working properly.",
+        testFailed: "Connection failed: $1",
+        cmdToggleTranslate: "Toggle translation mode on/off (Ctrl+Shift+X)",
 
         // Content Script UI (Tooltip)
         translatingHeader: "Translating...",
         resultHeader: "Translation Result",
+        originalHeader: "Original Text",
         errorHeader: "Error Occurred",
         copyBtn: "Copy",
         copiedBtn: "Copied!",
+        toggleOriginal: "Original",
+        toggleTranslation: "Translation",
         noResponseError: "No response received from background service.",
 
         // Background / API Messages

@@ -6,5 +6,9 @@
   "extDescription": {
     "message": "Point and click or drag web page elements to translate instantly with LLM.",
     "description": "The description of the extension"
+  },
+  "cmdToggleTranslate": {
+    "message": "Toggle translation mode on/off",
+    "description": "Shortcut description"
   }
 }

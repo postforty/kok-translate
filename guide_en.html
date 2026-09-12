@@ -21,8 +21,8 @@
   
   <h2>Basic Usage</h2>
   <ul>
-    <li>Click the puzzle icon or the pinned <strong>KokTranslate</strong> icon in your browser toolbar to open the popup.</li>
-    <li>Click the <strong>[Start Point & Click Mode]</strong> button.</li>
+    <li><strong>Global Keyboard Shortcut:</strong> Press <span class="kbd">Ctrl</span> + <span class="kbd">Shift</span> + <span class="kbd">X</span> (Mac: <span class="kbd">Cmd</span> + <span class="kbd">Shift</span> + <span class="kbd">X</span>) anywhere in the browser to toggle translation mode instantly.</li>
+    <li><strong>Or via Popup:</strong> Click the <strong>KokTranslate</strong> icon in your browser toolbar and click <strong>[Start Point & Click Mode]</strong>.</li>
     <li>Hover your mouse over elements you want to translate — they will be highlighted with a purple dashed outline.</li>
     <li><strong>Left-click</strong> the desired element to open the instant translation tooltip.</li>
     <li>Press <span class="kbd">ESC</span> anytime to exit translation mode.</li>
@@ -37,17 +37,27 @@
     </ul>
   </div>
 
-  <h2>🖱️ Marquee Drag Selection (Multi-Element & Long Text)</h2>
+  <h2>🖱️ Marquee Drag Selection & Edge Auto-Scroll</h2>
   <div class="feature-box">
-    <strong>Mouse Drag Selection</strong><br>
+    <strong>Mouse Drag Selection & Auto-Scroll</strong><br>
     Used when you want to translate multiple paragraphs, articles, or complex page sections at once.<br>
-    <strong>Hold the left mouse button and drag</strong> across the page to draw a purple box. Releasing the mouse button will capture and translate all text contained within the area.
+    <strong>Hold the left mouse button and drag</strong> across the page to draw a purple box. The viewport will automatically scroll as you approach the top or bottom edges, allowing you to select long pages seamlessly. Releasing the mouse button will capture and translate all text contained within the area.
+  </div>
+
+  <h2>✨ Tooltip Enhancements (Source Toggle & Drag to Move)</h2>
+  <div class="feature-box">
+    <ul>
+      <li><strong>Source ↔ Translation Toggle:</strong> Click <strong>[Source]</strong> / <strong>[Translate]</strong> buttons in the tooltip header to compare original and translated content while preserving markdown tables, code, and bold styling.</li>
+      <li><strong>Draggable Tooltip:</strong> Grab and move the tooltip by its top header to any position on the screen to view obstructed background text.</li>
+      <li><strong>One-Click Copy:</strong> Click the <strong>[Copy]</strong> button at the bottom right to copy formatted markdown text directly to your clipboard.</li>
+    </ul>
   </div>
   
   <h2>⚙️ Extension Settings (Options)</h2>
   <p>To use translation features, you need a <strong>Google Gemini API Key</strong> (Free via Google AI Studio).</p>
   <ul>
     <li><strong>Gemini API Key:</strong> Register your free API key obtained from [Google AI Studio](https://aistudio.google.com/).</li>
+    <li><strong>Test Connection:</strong> Click the <code>[Test Connection]</code> button to verify API key validity and model communication instantly.</li>
     <li><strong>Gemini Model:</strong> Specify custom model IDs (e.g. <code>gemini-2.5-flash</code>) in addition to the default (<code>gemini-3.5-flash-lite</code>).</li>
     <li><strong>Target Language:</strong> Choose your preferred translation language (Korean, English, Japanese, Chinese, Spanish, French, German, etc.). The extension strictly uses this language for all translations.</li>
     <li><strong>UI Language:</strong> Switch interface between Korean and English permanently.</li>
