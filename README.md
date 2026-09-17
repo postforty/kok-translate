@@ -18,7 +18,7 @@ A Google Chrome Extension that translates any text on a webpage instantly with a
 * **🔌 API Test Connection**: Quickly verify Gemini API key validity and model connectivity directly from the options page with a single click.
 * **🔒 Enhanced Security & Prompt Optimization**: Sends API keys via official `x-goog-api-key` headers to prevent URL leakage, and isolates translation rules into Gemini's official `system_instruction` parameter.
 * **Unidirectional LLM Translation**: Uses the Google Gemini API to provide natural, context-aware translations strictly to your chosen target language, eliminating LLM distraction and mixed-language errors.
-* **Target Translation Language Selection**: Choose your preferred destination language (Korean, English, Japanese, Chinese, Spanish, French, German, Russian, Vietnamese, etc.) directly in settings.
+* **Target Translation Language Selection**: Choose your preferred destination language (Korean, English, Japanese, Chinese, Spanish, French, German, Russian, Vietnamese, Hindi, etc.) directly in settings.
 * **Custom Gemini Model Support**: Specify custom Gemini model IDs in settings in addition to the default (`gemini-3.5-flash-lite`).
 * **Full i18n & Multilingual Support**: Built-in support for Korean and English UI and user guides. Switch languages anytime or auto-detect system language.
 
@@ -46,7 +46,7 @@ A **Google Gemini API Key** is required for translation.
    - **Gemini API Key**: Paste your Gemini API Key (click the eye icon to toggle visibility).
    - **Test Connection**: Click the `[Test Connection]` button to verify API key validity immediately.
    - **Gemini Model**: Enter custom model ID (default: `gemini-3.5-flash-lite`).
-   - **Target Language**: Select target translation language (default: `Korean`, with options for English, Japanese, Chinese, Spanish, etc.).
+   - **Target Language**: Select target translation language (default: `Korean`, with options for English, Japanese, Chinese, Spanish, Hindi, etc.).
    - **UI Language**: Select preferred UI language (Auto / Korean / English).
    - **Reset Defaults**: Restore model and language settings to defaults while safely retaining your API key.
 
@@ -82,6 +82,10 @@ A **Google Gemini API Key** is required for translation.
 ---
 
 ## 📜 Changelog
+
+### v1.8
+* **🇮🇳 Hindi (힌디어) Target Language Support**: Added Hindi (`hi`) to target translation languages, enabling natural and accurate translations into Hindi powered by Google Gemini AI.
+* **🌐 Multilingual Settings Expansion**: Updated the options page and runtime i18n dictionaries (Korean and English) to fully support Hindi target language selection.
 
 ### v1.7
 * **⚡ Global Keyboard Shortcut**: Register `Ctrl+Shift+X` (Mac: `Command+Shift+X`) to toggle translation mode on any webpage instantly.

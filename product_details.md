@@ -40,7 +40,7 @@ KokTranslate connects directly to the Google Gemini API. A free Gemini API key i
 6. 🖐️ Draggable Tooltip: Freely grab and reposition the translation tooltip by its header anywhere on the screen.
 7. 🔌 Instant API Test Connection: Test your Gemini API key and model connectivity with one click in the options page.
 8. 🛡️ Modern Web Apps & Shadow DOM Support: Deeply inspects and translates text inside Web Components and Shadow Roots (Lit, Angular, Polymer, modern Google web apps, etc.).
-9. 🤖 Strictly Unidirectional LLM Translation: Powered by Google Gemini API, translations are strictly directed into your explicitly chosen target language (Korean, English, Japanese, Chinese, Spanish, French, etc.) preventing mixed-language distraction.
+9. 🤖 Strictly Unidirectional LLM Translation: Powered by Google Gemini API, translations are strictly directed into your explicitly chosen target language (Korean, English, Japanese, Chinese, Spanish, French, Hindi, etc.) preventing mixed-language distraction.
 10. ⚙️ Custom Gemini Model IDs: Supports custom model IDs (e.g. gemini-3.5-flash-lite, gemini-2.5-flash) to match your performance and accuracy preferences.
 11. 📋 Instant Tooltip & One-Click Copy: View results in place with a responsive loading spinner, and copy the translated text directly to your clipboard with a single click.
 12. 🌐 Full i18n & Multilingual Support: Built-in Korean and English UI with automatic browser language detection and manual language switching.
@@ -88,7 +88,7 @@ Experience the fastest and smartest on-page translation workflow with KokTransla
 6. 🖐️ 툴팁 헤더 자유 이동: 툴팁 상단 헤더를 마우스로 잡고 드래그하여 원하는 위치로 이동시킬 수 있어 본문 텍스트를 가리지 않습니다.
 7. 🔌 API 연결 테스트: 설정 페이지에서 [연결 테스트] 버튼으로 API 키와 모델의 정상 작동 여부를 즉시 확인할 수 있습니다.
 8. 🛡️ Shadow DOM & 최신 웹앱 완벽 지원: 웹 컴포넌트(Lit, Angular, Polymer 등) 및 Shadow DOM(shadowRoot) 내부 요소까지 정밀하게 탐색하고 번역합니다.
-9. 🤖 LLM 기반 100% 단방향 강제 번역: 오직 사용자가 지정한 타깃 언어로만 무조건 번역되어 오류 없는 깔끔한 결과를 보장합니다.
+9. 🤖 LLM 기반 100% 단방향 강제 번역: 오직 사용자가 지정한 타깃 언어(한국어, 영어, 일본어, 중국어, 스페인어, 프랑스어, 힌디어 등)로만 무조건 번역되어 오류 없는 깔끔한 결과를 보장합니다.
 10. ⚙️ 커스텀 Gemini 모델 지원: 기본 모델(gemini-3.5-flash-lite) 외에 최신 모델(gemini-2.5-flash 등)을 설정에서 자유롭게 지정할 수 있습니다.
 11. 📋 제자리 툴팁 & 원클릭 복사: 마우스 커서 위치에 깔끔한 툴팁 형태로 결과가 표시되며, [복사] 버튼으로 마크다운 텍스트를 즉시 복사할 수 있습니다.
 12. 🌐 글로벌 다국어(i18n) 완벽 지원: 한국어 및 영어(English) UI를 완벽하게 지원합니다.

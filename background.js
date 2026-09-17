@@ -9,7 +9,8 @@ const LANGUAGE_NAMES = {
   fr: "French",
   de: "German",
   ru: "Russian",
-  vi: "Vietnamese"
+  vi: "Vietnamese",
+  hi: "Hindi"
 };
 
 function buildSystemInstruction(targetLang = "ko") {
