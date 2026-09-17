@@ -23,6 +23,14 @@ No more tedious copy-and-pasting into external translation tabs! Just point, cli
 - 📰 Researchers & Global Readers reading foreign news, research papers, and blog posts
 - ⚡ Anyone seeking a frictionless, on-page translation experience without leaving the browser tab
 
+[ 🚀 Quick Start Guide (Free API Key Setup) ]
+KokTranslate connects directly to the Google Gemini API. A free Gemini API key is required to start translating:
+1. Visit Google AI Studio (https://aistudio.google.com/) and generate a free API Key.
+2. Click the KokTranslate icon in your browser toolbar, then click [Settings] (or right-click icon -> Options).
+3. Paste your Gemini API Key into the input field and click [Test Connection] to verify connectivity immediately.
+4. Click [Save Settings] and you are ready to translate!
+* Privacy Note: Your API key is never collected or transmitted to any developer or third-party servers. It is stored in your browser's synchronized storage (chrome.storage.sync) and used solely for direct requests to the official Google Gemini API.
+
 [ ✨ Key Features & Highlights ]
 1. ⚡ Global Keyboard Shortcut: Toggle translation mode anytime with Ctrl+Shift+X (Cmd+Shift+X on Mac) without touching browser toolbars.
 2. 🎯 Intuitive Point & Click Translation: Hover over any web element to highlight it with a purple dashed outline, and left-click to translate immediately.
@@ -37,7 +45,7 @@ No more tedious copy-and-pasting into external translation tabs! Just point, cli
 11. 📋 Instant Tooltip & One-Click Copy: View results in place with a responsive loading spinner, and copy the translated text directly to your clipboard with a single click.
 12. 🌐 Full i18n & Multilingual Support: Built-in Korean and English UI with automatic browser language detection and manual language switching.
 13. 🛡️ Safe & Effortless Exit (ESC): Press ESC or click outside the tooltip anytime to seamlessly dismiss translation mode and resume normal browsing.
-14. 🔒 Privacy & Security: Uses official `x-goog-api-key` headers; your API key is stored safely in your browser's synchronized storage and is never transmitted to third-party servers.
+14. 🔒 Privacy & Security: Uses official `x-goog-api-key` headers; your API key is stored in your browser's synchronized storage (chrome.storage.sync) and is never transmitted to third-party servers.
 
 Experience the fastest and smartest on-page translation workflow with KokTranslate today!
 ```
@@ -63,6 +71,14 @@ Experience the fastest and smartest on-page translation workflow with KokTransla
 - 📖 원문과 번역문을 대조하며 어학 공부를 하시는 학생 및 학습자
 - ⚡ 탭 이동 없이 웹 서핑 흐름을 유지하며 빠른 번역을 원하시는 모든 분
 
+[ 🚀 1분 만에 시작하기 (무료 API 키 설정) ]
+콕! 번역기는 공식 Google Gemini API를 사용하며, 번역 기능을 이용하려면 개인 Gemini API 키(무료)가 필요합니다:
+1. Google AI Studio(https://aistudio.google.com/)에 접속하여 무료 API 키를 발급받습니다.
+2. 브라우저 툴바에서 '콕! 번역기' 확장 프로그램 아이콘을 클릭한 뒤 [설정] 버튼을 누릅니다. (또는 아이콘 우클릭 -> 옵션)
+3. 발급받은 Gemini API 키를 입력합니다.
+4. [연결 테스트] 버튼을 눌러 정상 작동을 확인한 후 [저장하기]를 클릭하면 모든 준비가 완료됩니다!
+* 보안 및 개인정보 안내: 입력하신 API 키는 개발자나 제3자 서버로 절대 수집·전송되지 않으며, 브라우저 동기화 저장소(chrome.storage.sync)에 저장되어 오직 공식 Google Gemini API 호출에만 직접 사용됩니다.
+
 [ ✨ 주요 기능 및 특징 ]
 1. ⚡ 전역 단축키 지원: 브라우저 어디서나 Ctrl+Shift+X (Mac: Cmd+Shift+X)로 번역 모드를 즉시 켜고 끌 수 있습니다.
 2. 🎯 직관적인 포인트 & 클릭 번역: 마우스를 올리면 번역될 요소가 보라색 점선 박스로 강조되며, 클릭 한 번으로 즉시 번역됩니다.
@@ -77,7 +93,7 @@ Experience the fastest and smartest on-page translation workflow with KokTransla
 11. 📋 제자리 툴팁 & 원클릭 복사: 마우스 커서 위치에 깔끔한 툴팁 형태로 결과가 표시되며, [복사] 버튼으로 마크다운 텍스트를 즉시 복사할 수 있습니다.
 12. 🌐 글로벌 다국어(i18n) 완벽 지원: 한국어 및 영어(English) UI를 완벽하게 지원합니다.
 13. 🛡️ ESC 간편 종료: 언제든지 키보드의 ESC 키를 누르거나 툴팁 바깥을 클릭하면 원래 브라우징 상태로 안전하게 돌아옵니다.
-14. 🔒 철저한 보안: 공식 보안 헤더(x-goog-api-key)를 사용하며, API 키는 브라우저 내부 스토리지(chrome.storage.sync)에만 안전하게 보관됩니다.
+14. 🔒 철저한 보안: 공식 보안 헤더(x-goog-api-key)를 사용하며, API 키는 브라우저 동기화 스토리지(chrome.storage.sync)에 안전하게 보관되어 제3자 서버로 절대 전송되지 않습니다.
 
 콕! 찍어 바로 번역하는 가장 편리한 웹 브라우징, 지금 KokTranslate로 시작해 보세요!
 ```
