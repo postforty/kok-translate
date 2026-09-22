@@ -8,6 +8,7 @@ A Google Chrome Extension that translates any text on a webpage instantly with a
 
 ## 🌟 Key Features
 
+* **🔑 One-Click Free API Key Issuance**: Direct one-click shortcut to Google AI Studio right within the settings page with official Google branding for effortless onboarding.
 * **⚡ Global Shortcut Support**: Toggle translation mode anytime, anywhere using `Ctrl+Shift+X` (Mac: `Command+Shift+X`) without clicking browser icons.
 * **Intuitive Element Selection (DOM Hover & Highlight)**: When translation mode is active, hovering over web elements highlights them with a clean purple dashed border.
 * **Point & Click Translation**: Left-click any highlighted element to instantly translate its text and view results right next to your cursor.
@@ -39,10 +40,9 @@ A Google Chrome Extension that translates any text on a webpage instantly with a
 
 A **Google Gemini API Key** is required for translation.
 
-1. Visit [Google AI Studio](https://aistudio.google.com/) to get a free API Key.
-2. Click the KokTranslate extension icon in the toolbar.
-3. Click the **Settings** button at the bottom of the popup (or right-click extension icon -> Options).
-4. Configure the following options and click **Save Settings**:
+1. Click the KokTranslate extension icon in your browser toolbar, then click the **Settings** button (or right-click extension icon -> Options).
+2. Click the **`[Sign in with Google & Get Free API Key →]`** button at the top to generate a free Gemini API key on Google AI Studio.
+3. Configure the following options and click **Save Settings**:
    - **Gemini API Key**: Paste your Gemini API Key (click the eye icon to toggle visibility).
    - **Test Connection**: Click the `[Test Connection]` button to verify API key validity immediately.
    - **Gemini Model**: Enter custom model ID (default: `gemini-3.5-flash-lite`).
@@ -82,6 +82,11 @@ A **Google Gemini API Key** is required for translation.
 ---
 
 ## 📜 Changelog
+
+### v1.9
+* **🔑 Google AI Studio One-Click Free Key Issuance**: Added a prominent `[Sign in with Google & Get Free API Key →]` shortcut button with official Google branding on the options page for frictionless user onboarding.
+* **🎨 Elevated Popup UI & Branding**: Embedded an enlarged 72px brand symbol logo in the popup header and harmonized secondary action button styles ([Guide] & [Settings]) in clean light-gray.
+* **🛡️ System/Restricted Page Tab Safety**: Handled cases where `tab.url` is undefined on internal pages (`chrome://`, webstore, or error screens), eliminating runtime `TypeError: Cannot read properties of undefined (reading 'startsWith')`.
 
 ### v1.8
 * **🇮🇳 Hindi (힌디어) Target Language Support**: Added Hindi (`hi`) to target translation languages, enabling natural and accurate translations into Hindi powered by Google Gemini AI.

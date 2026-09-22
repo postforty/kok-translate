@@ -25,8 +25,8 @@ No more tedious copy-and-pasting into external translation tabs! Just point, cli
 
 [ 🚀 Quick Start Guide (Free API Key Setup) ]
 KokTranslate connects directly to the Google Gemini API. A free Gemini API key is required to start translating:
-1. Visit Google AI Studio (https://aistudio.google.com/) and generate a free API Key.
-2. Click the KokTranslate icon in your browser toolbar, then click [Settings] (or right-click icon -> Options).
+1. Click the KokTranslate icon in your browser toolbar, then click [Settings] (or right-click icon -> Options).
+2. Click the [Sign in with Google & Get Free API Key →] button at the top to generate a free Gemini API Key in seconds on Google AI Studio.
 3. Paste your Gemini API Key into the input field and click [Test Connection] to verify connectivity immediately.
 4. Click [Save Settings] and you are ready to translate!
 * Privacy Note: Your API key is never collected or transmitted to any developer or third-party servers. It is stored in your browser's synchronized storage (chrome.storage.sync) and used solely for direct requests to the official Google Gemini API.
@@ -73,9 +73,9 @@ Experience the fastest and smartest on-page translation workflow with KokTransla
 
 [ 🚀 1분 만에 시작하기 (무료 API 키 설정) ]
 콕! 번역기는 공식 Google Gemini API를 사용하며, 번역 기능을 이용하려면 개인 Gemini API 키(무료)가 필요합니다:
-1. Google AI Studio(https://aistudio.google.com/)에 접속하여 무료 API 키를 발급받습니다.
-2. 브라우저 툴바에서 '콕! 번역기' 확장 프로그램 아이콘을 클릭한 뒤 [설정] 버튼을 누릅니다. (또는 아이콘 우클릭 -> 옵션)
-3. 발급받은 Gemini API 키를 입력합니다.
+1. 브라우저 툴바에서 '콕! 번역기' 확장 프로그램 아이콘을 클릭한 뒤 [설정] 버튼을 누릅니다. (또는 아이콘 우클릭 -> 옵션)
+2. 설정 페이지 상단의 [Google 로그인하고 무료 키 발급받기 →] 버튼을 눌러 Google AI Studio에서 몇 초 만에 무료 API 키를 발급받습니다.
+3. 발급받은 Gemini API 키를 입력창에 붙여넣습니다.
 4. [연결 테스트] 버튼을 눌러 정상 작동을 확인한 후 [저장하기]를 클릭하면 모든 준비가 완료됩니다!
 * 보안 및 개인정보 안내: 입력하신 API 키는 개발자나 제3자 서버로 절대 수집·전송되지 않으며, 브라우저 동기화 저장소(chrome.storage.sync)에 저장되어 오직 공식 Google Gemini API 호출에만 직접 사용됩니다.
 

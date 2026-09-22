@@ -21,6 +21,7 @@
         // Options UI
         optionsTitle: "KokTranslate 설정",
         apiKeyLabel: "Gemini API Key",
+        getApiKeyBtn: "Google 로그인하고 무료 키 발급받기 →",
         apiKeyPlaceholder: "AI Studio에서 발급받은 API 키 입력",
         toggleApiKeyTitle: "비밀번호 표시/숨기기",
         geminiModelLabel: "Gemini 모델 (Model)",
@@ -87,6 +88,7 @@
         // Options UI
         optionsTitle: "KokTranslate Settings",
         apiKeyLabel: "Gemini API Key",
+        getApiKeyBtn: "Sign in with Google & Get Free API Key →",
         apiKeyPlaceholder: "Enter API Key from Google AI Studio",
         toggleApiKeyTitle: "Show/Hide API Key",
         geminiModelLabel: "Gemini Model",

@@ -57,7 +57,7 @@ flowchart TD
 ### ① 스토어 추천 피처드(Featured) 배너 & 마키 (1400x560 / 16:9)
 > 웹스토어 메인 추천 배너 및 스토어 상세 헤더에 활용하여 압도적인 첫인상을 부여합니다.
 
-![KokTranslate 프로모션 배너](C:\Users\dandycode\.gemini\antigravity-ide\brain\d8a64cbe-5f69-491e-9482-d6c8f58ae0da\kok_promo_banner_1790002721766.jpg)
+~~![KokTranslate 프로모션 배너](C:\Users\dandycode\.gemini\antigravity-ide\brain\d8a64cbe-5f69-491e-9482-d6c8f58ae0da\kok_promo_banner_1790002721766.jpg)~~
 
 - **핵심 포인트:**
   - 현대적인 다크 모드 & 네온 퍼플/사이언 하이라이트
