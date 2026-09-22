@@ -6,7 +6,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     
-    if (tab.url.startsWith("chrome://") || tab.url.startsWith("https://chrome.google.com/webstore")) {
+    if (!tab || !tab.id) {
+      return;
+    }
+
+    const url = tab.url || "";
+    if (url.startsWith("chrome://") || url.startsWith("chrome-extension://") || url.startsWith("https://chrome.google.com/webstore")) {
       return; // Do not alert on load, just silently disable
     }
 
