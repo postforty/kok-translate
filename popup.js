@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const isAlreadyInjected = checkResult && checkResult[0] && checkResult[0].result === true;
 
-      // 2. 주입되지 않은 경우에만 메인 프레임에 스크립트 파일 주입
+      // 2. 주입되지 않은 경우 메인 프레임에 우선 확실하게 스크립트 파일 주입
       if (!isAlreadyInjected) {
         await chrome.scripting.executeScript({
           target: { tabId: tab.id },
@@ -50,7 +50,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
       }
 
-      // 3. 메인 프레임 함수 직접 호출 (iframe 포트 단절 방지 및 0ms 즉시 실행)
+      // 3. 서브프레임(Google Stitch 등 iframe 기반 웹앱) 대상 비동기 확장 주입 (광고 iframe 오류 시에도 무시)
+      chrome.scripting.executeScript({
+        target: { tabId: tab.id, allFrames: true },
+        files: ["i18n.js", "content.js"]
+      }).catch(() => {});
+
+      // 4. 메인 프레임 함수 직접 호출 (0ms 즉시 실행)
       try {
         await chrome.scripting.executeScript({
           target: { tabId: tab.id },
@@ -68,13 +74,14 @@ document.addEventListener("DOMContentLoaded", async () => {
           args: [isActive]
         });
       } catch (directErr) {
-        // 직접 실행 실패 시 fallback으로 메인 프레임(frameId: 0) 대상 메시지 전송
-        await chrome.tabs.sendMessage(
-          tab.id,
-          { action: isActive ? "stop_hover_selection" : "start_hover_selection" },
-          { frameId: 0 }
-        ).catch(() => {});
+        console.warn("Direct execution fallback:", directErr);
       }
+
+      // 5. 전체 탭 대상 메시지 브로드캐스트 (서브프레임 내부 선택 모드 동시 활성화)
+      chrome.tabs.sendMessage(
+        tab.id,
+        { action: isActive ? "stop_hover_selection" : "start_hover_selection" }
+      ).catch(() => {});
 
       window.close();
     });

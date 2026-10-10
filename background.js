@@ -160,7 +160,7 @@ chrome.commands.onCommand.addListener(async (command) => {
 
       const isAlreadyInjected = checkResult && checkResult[0] && checkResult[0].result === true;
 
-      // 2. 주입되지 않은 경우에만 메인 프레임에 스크립트 파일 주입
+      // 2. 주입되지 않은 경우 메인 프레임에 우선 확실하게 스크립트 파일 주입
       if (!isAlreadyInjected) {
         await chrome.scripting.executeScript({
           target: { tabId: tab.id },
@@ -168,7 +168,13 @@ chrome.commands.onCommand.addListener(async (command) => {
         });
       }
 
-      // 3. 상태 확인 후 메인 프레임 함수 직접 호출
+      // 3. 서브프레임(Google Stitch 등 iframe 기반 웹앱) 대상 비동기 확장 주입 (광고 iframe 오류 시에도 무시)
+      chrome.scripting.executeScript({
+        target: { tabId: tab.id, allFrames: true },
+        files: ["i18n.js", "content.js"]
+      }).catch(() => {});
+
+      // 4. 상태 확인 후 메인 프레임 직접 실행 및 서브프레임 브로드캐스트
       chrome.tabs.sendMessage(tab.id, { action: "check_status" }, async (response) => {
         const isActive = Boolean(!chrome.runtime.lastError && response && response.isActive);
         try {
@@ -188,10 +194,12 @@ chrome.commands.onCommand.addListener(async (command) => {
             args: [isActive]
           });
         } catch (directErr) {
-          chrome.tabs.sendMessage(tab.id, { 
-            action: isActive ? "stop_hover_selection" : "start_hover_selection" 
-          }, { frameId: 0 }).catch(() => {});
+          console.warn("Direct execution fallback:", directErr);
         }
+
+        chrome.tabs.sendMessage(tab.id, { 
+          action: isActive ? "stop_hover_selection" : "start_hover_selection" 
+        }).catch(() => {});
       });
     } catch (error) {
       console.error("[KokTranslate] Command execution error:", error);
