@@ -21,6 +21,8 @@ A Google Chrome Extension that translates any text on a webpage instantly with a
 * **Unidirectional LLM Translation**: Uses the Google Gemini API to provide natural, context-aware translations strictly to your chosen target language, eliminating LLM distraction and mixed-language errors.
 * **Target Translation Language Selection**: Choose your preferred destination language (Korean, English, Japanese, Chinese, Spanish, French, German, Russian, Vietnamese, Hindi, etc.) directly in settings.
 * **Custom Gemini Model Support**: Specify custom Gemini model IDs in settings in addition to the default (`gemini-3.5-flash-lite`).
+* **💬 Real-Time Status Toasts & Key Event Isolation**: Displays top toast banners on translation mode start (`ESC: Cancel`) and exit, with clean `ESC` key isolation (`preventDefault` & `stopPropagation`) to prevent interference with host page shortcuts.
+* **📁 Local HTML File (`file://`) Support & Permission Detection**: Seamlessly translate local HTML files saved on your PC with helpful onboarding alerts if Chrome's 'Allow access to file URLs' permission is disabled.
 * **Full i18n & Multilingual Support**: Built-in support for Korean and English UI and user guides. Switch languages anytime or auto-detect system language.
 
 ---
@@ -82,6 +84,13 @@ A **Google Gemini API Key** is required for translation.
 ---
 
 ## 📜 Changelog
+
+### v2.0
+* **⚡ 0ms Smart Instant Re-activation (Robust Support for Ad/Iframe-Heavy Pages)**: Resolved freeze/delay issues when re-activating translation mode after pressing `ESC` on heavy news/portal pages (e.g., Chosun Ilbo, Naver with dozens of ad iframes). Implemented ultrafast main-frame injection checks (1ms) and direct function invocation to guarantee 0ms latency re-entry.
+* **💬 Real-Time Status Toast UI**: Added visual toast banners at the top of the viewport when translation mode starts (`Point & Translate mode started. (ESC: Cancel)`) and when cancelled (`Translation mode cancelled.`), greatly improving user clarity.
+* **⌨️ Safe ESC Key Isolation**: Applied `e.preventDefault()` and `e.stopPropagation()` when pressing `ESC` to prevent interference with host page modals, video players, and custom key listeners.
+* **📁 Local HTML File (`file://`) Support & Permission Alerts**: Added pre-validation and clear onboarding alerts when attempting to translate local HTML files without Chrome's "Allow access to file URLs" permission enabled.
+* **🌐 Expanded Localization (i18n)**: Added English and Korean translations for new toast notifications and local file access alerts.
 
 ### v1.9
 * **🔑 Google AI Studio One-Click Free Key Issuance**: Added a prominent `[Sign in with Google & Get Free API Key →]` shortcut button with official Google branding on the options page for frictionless user onboarding.

@@ -24,6 +24,28 @@ if (!window.hasInjectedKokTranslate) {
   function injectStyles() {
     const style = document.createElement("style");
     style.textContent = `
+      .kok-toast {
+        position: fixed;
+        top: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(30, 30, 30, 0.92);
+        color: #fff;
+        padding: 9px 18px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-weight: 500;
+        z-index: 2147483647;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+      .kok-toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(4px);
+      }
       .kok-tooltip {
         position: fixed;
         margin: 0;
@@ -471,7 +493,9 @@ if (!window.hasInjectedKokTranslate) {
       if ((el.classList && el.classList.contains("kok-tooltip")) ||
           (el.closest && el.closest(".kok-tooltip")) ||
           (el.classList && el.classList.contains("kok-marquee-box")) ||
-          (el.closest && el.closest(".kok-marquee-box"))) {
+          (el.closest && el.closest(".kok-marquee-box")) ||
+          (el.classList && el.classList.contains("kok-toast")) ||
+          (el.id === "kok-toast")) {
         return null;
       }
       return el;
@@ -479,13 +503,49 @@ if (!window.hasInjectedKokTranslate) {
     return e.target;
   }
 
-  function startSelection() {
+  let currentToastEl = null;
+  let toastTimeoutId = null;
+
+  function showToast(message) {
+    if (!message) return;
+    if (currentToastEl) {
+      currentToastEl.remove();
+      currentToastEl = null;
+      if (toastTimeoutId) clearTimeout(toastTimeoutId);
+    }
+    const toast = document.createElement("div");
+    toast.className = "kok-toast";
+    toast.id = "kok-toast";
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    currentToastEl = toast;
+
+    requestAnimationFrame(() => {
+      toast.classList.add("show");
+    });
+
+    toastTimeoutId = setTimeout(() => {
+      toast.classList.remove("show");
+      setTimeout(() => {
+        if (toast.parentNode) toast.remove();
+        if (currentToastEl === toast) currentToastEl = null;
+      }, 200);
+    }, 2200);
+  }
+
+  async function startSelection() {
     window.hasStartedSelection = true;
     document.addEventListener("mousedown", mouseDownHandler, true);
     document.addEventListener("mousemove", mouseMoveHandler, true);
     document.addEventListener("mouseup", mouseUpHandler, true);
     document.addEventListener("click", clickHandler, true);
     document.addEventListener("keydown", escapeHandler, true);
+
+    const currentLang = typeof I18N !== "undefined" ? await I18N.getEffectiveLanguage() : "ko";
+    const toastMsg = typeof I18N !== "undefined" 
+      ? I18N.t("toastSelectionStarted", [], currentLang) 
+      : "콕! 번역 모드가 시작되었습니다. (ESC: 취소)";
+    showToast(toastMsg);
   }
 
   function stopSelection() {
@@ -513,10 +573,18 @@ if (!window.hasInjectedKokTranslate) {
     }
   }
 
-  function escapeHandler(e) {
+  async function escapeHandler(e) {
     if (e.key === "Escape") {
+      e.preventDefault();
+      e.stopPropagation();
       window.isTranslationModeActive = false;
       stopSelection();
+
+      const currentLang = typeof I18N !== "undefined" ? await I18N.getEffectiveLanguage() : "ko";
+      const toastMsg = typeof I18N !== "undefined" 
+        ? I18N.t("toastSelectionCancelled", [], currentLang) 
+        : "번역 모드가 해제되었습니다.";
+      showToast(toastMsg);
     }
   }
 
@@ -1389,23 +1457,36 @@ if (!window.hasInjectedKokTranslate) {
     });
   }
 
+  // 팝업 및 외부에서 직접 호출할 수 있도록 전역 함수 노출
+  window.startHoverSelectionFromExtension = function () {
+    window.isTranslationModeActive = true;
+    stopSelection();
+    if (!currentTooltip) {
+      startSelection();
+    }
+  };
+
+  window.stopHoverSelectionFromExtension = function () {
+    window.isTranslationModeActive = false;
+    stopSelection();
+    if (currentTooltip) {
+      currentTooltip.remove();
+      currentTooltip = null;
+    }
+  };
+
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "check_status") {
       sendResponse({ isActive: window.isTranslationModeActive === true });
+      return true;
     } else if (request.action === "start_hover_selection") {
-      window.isTranslationModeActive = true;
-      // 기존 리스너 및 상태 안전 정리 후 시작
-      stopSelection();
-      if (!currentTooltip) {
-        startSelection();
-      }
+      window.startHoverSelectionFromExtension();
+      if (sendResponse) sendResponse({ success: true, isActive: true });
+      return true;
     } else if (request.action === "stop_hover_selection") {
-      window.isTranslationModeActive = false;
-      stopSelection();
-      if (currentTooltip) {
-        currentTooltip.remove();
-        currentTooltip = null;
-      }
+      window.stopHoverSelectionFromExtension();
+      if (sendResponse) sendResponse({ success: true, isActive: false });
+      return true;
     }
   });
 }

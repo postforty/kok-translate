@@ -46,6 +46,8 @@ KokTranslate connects directly to the Google Gemini API. A free Gemini API key i
 12. 🌐 Full i18n & Multilingual Support: Built-in Korean and English UI with automatic browser language detection and manual language switching.
 13. 🛡️ Safe & Effortless Exit (ESC): Press ESC or click outside the tooltip anytime to seamlessly dismiss translation mode and resume normal browsing.
 14. 🔒 Privacy & Security: Uses official `x-goog-api-key` headers; your API key is stored in your browser's synchronized storage (chrome.storage.sync) and is never transmitted to third-party servers.
+15. ⚡ 0ms Smart Instant Re-entry & Status Toasts: Instantly re-activates translation mode with zero delay even across ad-heavy multi-iframe pages, accompanied by top status toast banners and isolated ESC key handling.
+16. 📁 Local HTML File (file://) Support: Enables translation directly on local HTML files on your PC with helpful onboarding guidance for Chrome file access permissions.
 
 Experience the fastest and smartest on-page translation workflow with KokTranslate today!
 ```
@@ -94,6 +96,8 @@ Experience the fastest and smartest on-page translation workflow with KokTransla
 12. 🌐 글로벌 다국어(i18n) 완벽 지원: 한국어 및 영어(English) UI를 완벽하게 지원합니다.
 13. 🛡️ ESC 간편 종료: 언제든지 키보드의 ESC 키를 누르거나 툴팁 바깥을 클릭하면 원래 브라우징 상태로 안전하게 돌아옵니다.
 14. 🔒 철저한 보안: 공식 보안 헤더(x-goog-api-key)를 사용하며, API 키는 브라우저 동기화 스토리지(chrome.storage.sync)에 안전하게 보관되어 제3자 서버로 절대 전송되지 않습니다.
+15. ⚡ 0ms 스마트 즉각 재진입 & 실시간 토스트 안내: 수십 개의 광고 iframe이 로드된 복잡한 웹페이지에서도 0ms 딜레이로 즉시 번역 모드에 재진입하며, 화면 상단 상태 안내 토스트 및 ESC 단축키 간섭 방지를 제공합니다.
+16. 📁 로컬 HTML 파일(file://) 지원: 웹페이지뿐만 아니라 내 컴퓨터에 저장된 로컬 HTML 파일도 손쉽게 번역할 수 있으며, Chrome 권한 필요 시 친절한 가이드를 제공합니다.
 
 콕! 찍어 바로 번역하는 가장 편리한 웹 브라우징, 지금 KokTranslate로 시작해 보세요!
 ```

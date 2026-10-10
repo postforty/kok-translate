@@ -25,33 +25,57 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     btn.addEventListener("click", async () => {
-      // Ensure content script and i18n module are injected
-      try {
-        await chrome.scripting.executeScript({
-          target: { tabId: tab.id, allFrames: true },
-          files: ["i18n.js", "content.js"]
-        });
-      } catch (e) {
-        // allFrames 실패 시 메인 프레임 단독 주입 시도
-        try {
-          await chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            files: ["i18n.js", "content.js"]
-          });
-        } catch (err) {
-          console.warn("스크립트 주입 경고:", err);
+      // 로컬 파일 (file://) 접근 권한 사전 검사
+      if (url.startsWith("file://")) {
+        const isAllowed = await chrome.extension.isAllowedFileSchemeAccess();
+        if (!isAllowed) {
+          alert(I18N.t("alertFileAccessRequired", [], currentLang));
+          return;
         }
       }
 
-      if (isActive) {
-        await chrome.tabs.sendMessage(tab.id, { action: "stop_hover_selection" }).catch((err) => {
-          console.warn("sendMessage warning:", err);
-        });
-      } else {
-        await chrome.tabs.sendMessage(tab.id, { action: "start_hover_selection" }).catch((err) => {
-          console.warn("sendMessage warning:", err);
+      // 1. 이미 메인 프레임에 스크립트가 주입되어 있는지 확인 (1ms)
+      const checkResult = await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: () => typeof window.hasInjectedKokTranslate !== "undefined"
+      }).catch(() => null);
+
+      const isAlreadyInjected = checkResult && checkResult[0] && checkResult[0].result === true;
+
+      // 2. 주입되지 않은 경우에만 메인 프레임에 스크립트 파일 주입
+      if (!isAlreadyInjected) {
+        await chrome.scripting.executeScript({
+          target: { tabId: tab.id },
+          files: ["i18n.js", "content.js"]
         });
       }
+
+      // 3. 메인 프레임 함수 직접 호출 (iframe 포트 단절 방지 및 0ms 즉시 실행)
+      try {
+        await chrome.scripting.executeScript({
+          target: { tabId: tab.id },
+          func: (shouldStop) => {
+            if (shouldStop) {
+              if (typeof window.stopHoverSelectionFromExtension === "function") {
+                window.stopHoverSelectionFromExtension();
+              }
+            } else {
+              if (typeof window.startHoverSelectionFromExtension === "function") {
+                window.startHoverSelectionFromExtension();
+              }
+            }
+          },
+          args: [isActive]
+        });
+      } catch (directErr) {
+        // 직접 실행 실패 시 fallback으로 메인 프레임(frameId: 0) 대상 메시지 전송
+        await chrome.tabs.sendMessage(
+          tab.id,
+          { action: isActive ? "stop_hover_selection" : "start_hover_selection" },
+          { frameId: 0 }
+        ).catch(() => {});
+      }
+
       window.close();
     });
 

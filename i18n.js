@@ -16,7 +16,10 @@
         guideBtn: "설명서",
         optionsBtn: "설정",
         alertProtectedPage: "이 페이지에서는 확장 프로그램을 사용할 수 없습니다.",
+        alertFileAccessRequired: "로컬 파일(file://)을 번역하려면 크롬 확장 프로그램 관리 페이지(chrome://extensions)에서 '파일 URL에 대한 액세스 허용' 옵션을 활성화해야 합니다.",
         alertScriptFailed: "스크립트 주입 또는 상태 확인에 실패했습니다.",
+        toastSelectionStarted: "콕! 번역 모드가 시작되었습니다. (ESC: 취소)",
+        toastSelectionCancelled: "번역 모드가 해제되었습니다.",
 
         // Options UI
         optionsTitle: "KokTranslate 설정",
@@ -83,7 +86,10 @@
         guideBtn: "Guide",
         optionsBtn: "Settings",
         alertProtectedPage: "The extension cannot be used on this page.",
+        alertFileAccessRequired: "To translate local files (file://), you must enable 'Allow access to file URLs' in the Chrome extension management page (chrome://extensions).",
         alertScriptFailed: "Failed to inject script or check status.",
+        toastSelectionStarted: "Point & Translate mode started. (ESC: Cancel)",
+        toastSelectionCancelled: "Translation mode cancelled.",
 
         // Options UI
         optionsTitle: "KokTranslate Settings",

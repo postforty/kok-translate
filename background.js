@@ -144,29 +144,53 @@ chrome.commands.onCommand.addListener(async (command) => {
         return;
       }
 
-      try {
-        await chrome.scripting.executeScript({
-          target: { tabId: tab.id, allFrames: true },
-          files: ["i18n.js", "content.js"]
-        });
-      } catch (e) {
-        try {
-          await chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            files: ["i18n.js", "content.js"]
-          });
-        } catch (err) {
-          console.warn("[KokTranslate] Script injection warning:", err);
+      // 로컬 파일 (file://) 접근 권한 확인
+      if (tab.url && tab.url.startsWith("file://")) {
+        const isAllowed = await chrome.extension.isAllowedFileSchemeAccess();
+        if (!isAllowed) {
+          return;
         }
       }
 
-      chrome.tabs.sendMessage(tab.id, { action: "check_status" }, (response) => {
-        if (chrome.runtime.lastError || !response) {
-          chrome.tabs.sendMessage(tab.id, { action: "start_hover_selection" }).catch(() => {});
-        } else if (response.isActive) {
-          chrome.tabs.sendMessage(tab.id, { action: "stop_hover_selection" }).catch(() => {});
-        } else {
-          chrome.tabs.sendMessage(tab.id, { action: "start_hover_selection" }).catch(() => {});
+      // 1. 이미 메인 프레임에 스크립트가 주입되어 있는지 확인 (1ms)
+      const checkResult = await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: () => typeof window.hasInjectedKokTranslate !== "undefined"
+      }).catch(() => null);
+
+      const isAlreadyInjected = checkResult && checkResult[0] && checkResult[0].result === true;
+
+      // 2. 주입되지 않은 경우에만 메인 프레임에 스크립트 파일 주입
+      if (!isAlreadyInjected) {
+        await chrome.scripting.executeScript({
+          target: { tabId: tab.id },
+          files: ["i18n.js", "content.js"]
+        });
+      }
+
+      // 3. 상태 확인 후 메인 프레임 함수 직접 호출
+      chrome.tabs.sendMessage(tab.id, { action: "check_status" }, async (response) => {
+        const isActive = Boolean(!chrome.runtime.lastError && response && response.isActive);
+        try {
+          await chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            func: (shouldStop) => {
+              if (shouldStop) {
+                if (typeof window.stopHoverSelectionFromExtension === "function") {
+                  window.stopHoverSelectionFromExtension();
+                }
+              } else {
+                if (typeof window.startHoverSelectionFromExtension === "function") {
+                  window.startHoverSelectionFromExtension();
+                }
+              }
+            },
+            args: [isActive]
+          });
+        } catch (directErr) {
+          chrome.tabs.sendMessage(tab.id, { 
+            action: isActive ? "stop_hover_selection" : "start_hover_selection" 
+          }, { frameId: 0 }).catch(() => {});
         }
       });
     } catch (error) {
